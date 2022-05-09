@@ -25,7 +25,7 @@ const Navbar = () => {
                 class="nav-link active"
                 aria-current="page"
                 href="#"
-                to="/signup"
+                to="/doctors"
               >
                 Doctors
               </Link>
@@ -35,7 +35,7 @@ const Navbar = () => {
                 class="nav-link active"
                 aria-current="page"
                 href="#"
-                to="/signup"
+                to="/respondants"
               >
                 Respondants
               </Link>
@@ -45,7 +45,7 @@ const Navbar = () => {
                 class="nav-link active"
                 aria-current="page"
                 href="#"
-                to="/signup"
+                to="/medicines"
               >
                 Medicines
               </Link>

@@ -1,19 +1,54 @@
 import React from "react";
+import FileUploader from "../components/FileUploader";
+import convertImageToBase64 from "../components/ImageBase64";
+import { uploadImage } from "../components/ImageUpload";
 import { useNavigate } from "react-router-dom";
+import alert from "./Services/Alert";
+import customerServices from "./Services/CustomerServices";
+import authServices from "./Services/AuthServices";
 const SignUp = () => {
   let navigate = useNavigate();
+  const [imgUrl, setImgUrl] = React.useState();
   const [data, setData] = React.useState({
-    accountType: "Customer",
-    name: "",
+    userType: "patient",
+    username: "",
     email: "",
     password: "",
     specialization: "",
-    phoneNumber: "",
+    phone: "",
     city: "",
-    imgUrl: "",
+    img: "",
   });
   function handleData(key, value) {
     setData({ ...data, [key]: value });
+  }
+
+  const onDrop = (acceptedFiles, rejectedFiles, imgName) => {
+    if (rejectedFiles.length > 0) {
+      alert.showWarningAlert("Upload only one image and size limit of 1 MB");
+      return;
+    } else if (acceptedFiles) {
+      convertImageToBase64(acceptedFiles[0], (result, success) => {
+        if (success) {
+          uploadImage(result, (url, success) => {
+            if (success) {
+              handleData("img", `${url}`);
+              setImgUrl(acceptedFiles[0].name);
+            }
+          });
+        }
+      });
+    }
+  };
+  function signUp() {
+    authServices
+      .registerUser(data)
+      .then((data) => {
+        console.log(data);
+        alert.showSuccessAlert("The user registered successfully!");
+        navigate("/dashboard");
+      })
+      .catch((err) => alert.showErrorAlert(err));
   }
   return (
     <section className="login-form shadow-lg">
@@ -27,22 +62,22 @@ const SignUp = () => {
           </div>
           <div className="col-lg-7 px-5">
             <h2 className="mt-3">Sign up</h2>
-            <form>
+            <form onSubmit={(e) => e.preventDefault()}>
               <div className="form-group mb-2 col-lg-9">
-                <label className="form-label " for="accountType">
+                <label className="form-label " for="userType">
                   Select Account Type
                 </label>
                 <select
-                  id="accountType"
+                  id="userType"
                   className="form-control dropdownMenu"
                   onChange={(e) => {
-                    handleData("accountType", e.target.value);
+                    handleData("userType", e.target.value);
                   }}
                 >
-                  <option value="Customer">Customer</option>
-                  <option value="Doctor">Doctor</option>
-                  <option value="Respondant">Respondant</option>
-                  <option value="Pharmicst">Pharmicst</option>
+                  <option value="patient">Patient</option>
+                  <option value="doctor">Doctor</option>
+                  <option value="respondant">Respondant</option>
+                  <option value="pharmicst">Pharmicst</option>
                 </select>
               </div>
               <div class="mb-2 col-lg-9">
@@ -54,7 +89,7 @@ const SignUp = () => {
                   class="form-control"
                   id="exampleInputPassword1"
                   onChange={(e) => {
-                    handleData("name", e.target.value);
+                    handleData("username", e.target.value);
                   }}
                 />
               </div>
@@ -97,7 +132,7 @@ const SignUp = () => {
                   class="form-control"
                   id="exampleInputPassword1"
                   onChange={(e) => {
-                    handleData("phoneNumber", e.target.value);
+                    handleData("phone", e.target.value);
                   }}
                 />
               </div>
@@ -114,7 +149,7 @@ const SignUp = () => {
                   }}
                 />
               </div>
-              {data.accountType === "Doctor" ? (
+              {data.userType === "doctor" ? (
                 <div class="mb-2 col-lg-9">
                   <label for="exampleInputPassword1" class="form-label">
                     Specialization
@@ -135,19 +170,23 @@ const SignUp = () => {
                 <label for="exampleInputPassword1" class="form-label">
                   upload an image
                 </label>
-                <input
-                  type="file"
-                  class="form-control"
-                  id="exampleInputPassword1"
-                  onChange={(e) => {
-                    handleData("imgUrl", e.target.value);
-                  }}
+
+                <FileUploader
+                  placeholder={imgUrl ? imgUrl : "Click here to upload"}
+                  accept={["image/jpeg", "image/png", "image/bmp"]}
+                  maxFiles={1}
+                  maxSize={1000000}
+                  onDrop={(acceptedFiles, rejectedFiles) =>
+                    onDrop(acceptedFiles, rejectedFiles, "frontSideImage")
+                  }
                 />
               </div>
               <button
                 type="submit"
                 class="btn btn-primary signIn-btn mb-5"
-                onClick={() => navigate("/dashboard")}
+                onClick={() => {
+                  signUp();
+                }}
               >
                 SignUp
               </button>

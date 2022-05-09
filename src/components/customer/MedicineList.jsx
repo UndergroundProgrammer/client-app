@@ -1,8 +1,5 @@
-import react from "react";
 import React from "react";
-import Menu from "./Menu";
-import axios from "axios";
-import productService from "../services/ProductsService";
+import Medicine from "./Medicine";
 
 const MedicineList = () => {
   //   function getData() {
@@ -17,17 +14,17 @@ const MedicineList = () => {
   //       });
   //   }
   const [items, setItems] = React.useState([]);
-  React.useEffect(getData, []);
+  //React.useEffect(getData, []);
   return (
-    <div className="container">
-      <h1>Items</h1>
+    <div className="container" id="medicines">
+      <h1>Medicines</h1>
       {items.length == 0 ? (
-        <p>There ar no products</p>
+        <p>There ar no medicines</p>
       ) : (
         <div className="row cardLayOut">
           {items.map((item, key) => (
             <div className="col-lg-4 col-md-5 col-sm-8 col-10 ">
-              <Menu key={key} item={item} />
+              <Medicine key={key} item={item} />
             </div>
           ))}
         </div>

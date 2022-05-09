@@ -1,6 +1,4 @@
-import axios from "axios";
 import React from "react";
-import { toast } from "react-toastify";
 const Medicine = ({ item }) => {
   return (
     <div>
@@ -14,9 +12,6 @@ const Medicine = ({ item }) => {
           <h5 className="card-title">{item.name}</h5>
           <p className="card-text">{item.description}</p>
           <a className="btn btn-primary col-6">Add to cart</a>
-          <p className="card-text col-6 d-inline">
-            <strong>{item.price}PKR</strong>
-          </p>
         </div>
       </div>
     </div>
