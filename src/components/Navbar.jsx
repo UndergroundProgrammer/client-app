@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import authServices from "./Services/AuthServices";
 const Navbar = () => {
   return (
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
@@ -50,6 +51,17 @@ const Navbar = () => {
                 Medicines
               </Link>
             </li>
+            <li class="nav-item">
+              <Link
+                class="nav-link active"
+                aria-current="page"
+                href="#"
+                to="/medicines"
+              >
+                Request
+              </Link>
+            </li>
+
             <li class="nav-item">
               <Link
                 class="nav-link active"

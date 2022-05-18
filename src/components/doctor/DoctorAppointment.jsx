@@ -1,5 +1,5 @@
 import React from "react";
-const Request = ({ request }) => {
+const DoctorAppointment = ({ appointment }) => {
   return (
     <div>
       <div class="card my-3 shadow-lg" style={{ maxWidth: "540px" }}>
@@ -13,7 +13,7 @@ const Request = ({ request }) => {
           </div>
           <div class="col-6">
             <div class="card-body">
-              <h5 class="card-title">{request.name}</h5>
+              <h5 class="card-title">{request.username}</h5>
               <p class="card-text">
                 <a>{request.email}</a>
               </p>
@@ -28,4 +28,4 @@ const Request = ({ request }) => {
   );
 };
 
-export default Request;
+export default DoctorAppointment;

@@ -1,24 +1,35 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import customerServices from "./Services/CustomerServices";
+import authServices from "./Services/AuthServices";
 import alert from "./Services/Alert";
 
 const SignIn = () => {
   let navigate = useNavigate();
   const [data, setData] = React.useState({
-    username: "",
+    email: "",
     password: "",
   });
   function handleData(key, value) {
     setData({ ...data, [key]: value });
   }
-  function login() {
-    customerServices
+  function login(e) {
+    e.preventDefault();
+    authServices
       .login(data)
       .then((data) => {
-        console.log(data._id);
-        alert.showErrorAlert(data.message);
-        customerServices.setLoginUserId(data._id);
+        if (data.userType == "patient") {
+          alert.showErrorAlert(data.message);
+          authServices.setLoginPatientId(data._id);
+          console.log(authServices.getLoginPatientId());
+          navigate("/dashboard");
+        } else if (data.userType == "doctor") {
+          alert.showSuccessAlert("You are logged in successfully!");
+          navigate("/requests");
+        } else if (data.userType == "respondant") {
+          alert.showErrorAlert(data.message);
+          authServices.setLoginUser(data);
+          console.log(authServices.getLoginUser());
+        }
       })
       .catch((err) => alert.showErrorAlert(err.message));
   }
@@ -35,7 +46,7 @@ const SignIn = () => {
           <div className="col-lg-7 px-5">
             <h2 className="mt-3">Login</h2>
 
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => login(e)}>
               <div class="mb-3 col-lg-9">
                 <label for="exampleInputEmail1" class="form-label">
                   Email address
@@ -45,7 +56,8 @@ const SignIn = () => {
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-                  onChange={(e) => handleData("username", e.target.value)}
+                  onChange={(e) => handleData("email", e.target.value)}
+                  required
                 />
                 <div id="emailHelp" class="form-text">
                   We'll never share your email with anyone else.
@@ -60,15 +72,10 @@ const SignIn = () => {
                   class="form-control"
                   id="exampleInputPassword1"
                   onChange={(e) => handleData("password", e.target.value)}
+                  required
                 />
               </div>
-              <button
-                type="submit"
-                class="btn btn-primary signIn-btn mb-5"
-                onClick={() => {
-                  login();
-                }}
-              >
+              <button type="submit" class="btn btn-primary signIn-btn mb-5">
                 Login
               </button>
             </form>

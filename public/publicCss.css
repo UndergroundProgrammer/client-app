@@ -68,8 +68,25 @@
 
 #medicines {
   margin-top: 5rem;
-  height: 30rem;
+  min-height: 100vh;
 }
 #stakeholder {
-  height: 100vh;
+  min-height: 100vh;
+}
+#requestsPage {
+  min-height: 100vh;
+}
+
+#MedicineCard {
+  margin: 0.5rem;
+  border-radius: 30px;
+  overflow: hidden;
+}
+#productImg {
+  height: 175px;
+}
+@media (max-width: 768px) {
+  #medicineList {
+    justify-content: center;
+  }
 }

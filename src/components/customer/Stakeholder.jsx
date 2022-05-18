@@ -1,16 +1,31 @@
 import React from "react";
+import authServices from "../Services/AuthServices";
+import alert from "../Services/Alert";
 import customerServices from "../Services/CustomerServices";
 import StakeholderMapper from "./StakeholderMapper";
+import { useNavigate } from "react-router-dom";
 const Stakeholder = ({ stakeholder, dataType }) => {
+  let navigate = useNavigate();
+  var data = {};
   function sendRequest(_id) {
+    console.log(authServices.getLoginPatientId());
+    if (authServices.getLoginPatientId() == undefined) {
+      alert.showErrorAlert("You should must login");
+      navigate("/login");
+      return;
+    }
     var method = () => {};
-    if (dataType == "Doctors") method = customerServices.requestDoctor;
-    else if (dataType == "Respondants")
+    if (dataType == "Doctors") {
+      method = customerServices.requestDoctor;
+      data = { doctorId: _id };
+    } else if (dataType == "Respondants") {
       method = customerServices.requestRespondant;
+      data = { respondantId: _id };
+    }
 
-    method(_id, customerServices.getLoginUserId())
+    method(authServices.getLoginPatientId(), data)
       .then((data) => {
-        console.log(data);
+        alert.showSuccessAlert("Request sended Successfully");
       })
       .catch((err) => {
         console.log(err);

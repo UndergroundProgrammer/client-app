@@ -18,6 +18,8 @@ const SignUp = () => {
     phone: "",
     city: "",
     img: "",
+    fee: "",
+    timing: "",
   });
   function handleData(key, value) {
     setData({ ...data, [key]: value });
@@ -40,15 +42,16 @@ const SignUp = () => {
       });
     }
   };
-  function signUp() {
+  function signUp(e) {
+    e.preventDefault();
     authServices
       .registerUser(data)
       .then((data) => {
         console.log(data);
         alert.showSuccessAlert("The user registered successfully!");
-        navigate("/dashboard");
+        navigate("/login");
       })
-      .catch((err) => alert.showErrorAlert(err));
+      .catch((err) => alert.showErrorAlert(err.message));
   }
   return (
     <section className="login-form shadow-lg">
@@ -62,7 +65,7 @@ const SignUp = () => {
           </div>
           <div className="col-lg-7 px-5">
             <h2 className="mt-3">Sign up</h2>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => signUp(e)}>
               <div className="form-group mb-2 col-lg-9">
                 <label className="form-label " for="userType">
                   Select Account Type
@@ -73,6 +76,7 @@ const SignUp = () => {
                   onChange={(e) => {
                     handleData("userType", e.target.value);
                   }}
+                  required
                 >
                   <option value="patient">Patient</option>
                   <option value="doctor">Doctor</option>
@@ -91,6 +95,7 @@ const SignUp = () => {
                   onChange={(e) => {
                     handleData("username", e.target.value);
                   }}
+                  required
                 />
               </div>
               <div class="mb-2 col-lg-9">
@@ -105,6 +110,7 @@ const SignUp = () => {
                   onChange={(e) => {
                     handleData("email", e.target.value);
                   }}
+                  required
                 />
                 <div id="emailHelp" class="form-text">
                   We'll never share your email with anyone else.
@@ -121,6 +127,7 @@ const SignUp = () => {
                   onChange={(e) => {
                     handleData("password", e.target.value);
                   }}
+                  required
                 />
               </div>
               <div class="mb-2 col-lg-9">
@@ -134,6 +141,7 @@ const SignUp = () => {
                   onChange={(e) => {
                     handleData("phone", e.target.value);
                   }}
+                  required
                 />
               </div>
               <div class="mb-2 col-lg-9">
@@ -147,22 +155,58 @@ const SignUp = () => {
                   onChange={(e) => {
                     handleData("city", e.target.value);
                   }}
+                  required
                 />
               </div>
               {data.userType === "doctor" ? (
-                <div class="mb-2 col-lg-9">
-                  <label for="exampleInputPassword1" class="form-label">
-                    Specialization
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputPassword1"
-                    onChange={(e) => {
-                      handleData("specialization", e.target.value);
-                    }}
-                  />
-                </div>
+                <>
+                  <div class="mb-2 col-lg-9">
+                    <label for="exampleInputPassword1" class="form-label">
+                      Specialization
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="exampleInputPassword1"
+                      onChange={(e) => {
+                        handleData("specialization", e.target.value);
+                      }}
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-2 col-lg-9">
+                    <label for="exampleInputPassword1" class="form-label">
+                      Checkup Fee
+                    </label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="exampleInputPassword1"
+                      onChange={(e) => {
+                        handleData("fee", e.target.value);
+                      }}
+                      required
+                    />
+                  </div>
+                  <div class="mb-2 col-lg-9">
+                    <label className="form-label " for="userType">
+                      Select Timing
+                    </label>
+                    <select
+                      id="userType"
+                      className="form-control dropdownMenu"
+                      onChange={(e) => {
+                        handleData("timing", e.target.value);
+                      }}
+                      required
+                    >
+                      <option value="1">8:00am to 12:00am</option>
+                      <option value="2">2:00pm to 6:00pm</option>
+                      <option value="3">6:00pm to 10:00pm</option>
+                    </select>
+                  </div>
+                </>
               ) : (
                 <></>
               )}
@@ -181,13 +225,7 @@ const SignUp = () => {
                   }
                 />
               </div>
-              <button
-                type="submit"
-                class="btn btn-primary signIn-btn mb-5"
-                onClick={() => {
-                  signUp();
-                }}
-              >
+              <button type="submit" class="btn btn-primary signIn-btn mb-5">
                 SignUp
               </button>
             </form>

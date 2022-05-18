@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import SignIn from "./components/SignIn";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SignUp from "./components/SignUp";
-import RequestMapper from "./components/RequestMapper";
+import RequestMapper from "./components/doctor/DoctorAppointmentMapper";
 import Footer from "./components/Footer";
 import Faqs from "./components/Faqs";
 import Privacy from "./components/Privacy";
@@ -13,10 +13,13 @@ import AboutUs from "./components/AboutUs";
 import MedicineList from "./components/customer/MedicineList";
 import StakeholderMapper from "./components/customer/StakeholderMapper";
 import customerServices from "./components/Services/CustomerServices";
+import authServices from "./components/Services/AuthServices";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+  const [userType, setUserType] = React.useState("");
   return (
     <Router>
       <div className="container-fluid px-0">
@@ -50,7 +53,14 @@ function App() {
           <Route path="/faqs" element={<Faqs />} />
           <Route path="/privacyPolicy" element={<Privacy />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/requests" element={<RequestMapper />} />
+          <Route
+            path="/doctorAppointments"
+            element={<DoctorAppointmentMapper />}
+          />
+          <Route
+            path="/respondantRequests"
+            element={<RespondantRequestMapper />}
+          />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/" element={<Dashboard />} />
