@@ -8,7 +8,6 @@ const Stakeholder = ({ stakeholder, dataType }) => {
   let navigate = useNavigate();
   var data = {};
   function sendRequest(_id) {
-    console.log(authServices.getLoginPatientId());
     if (authServices.getLoggedInUser() == undefined) {
       alert.showErrorAlert("You should must login");
       navigate("/login");
@@ -23,7 +22,7 @@ const Stakeholder = ({ stakeholder, dataType }) => {
       data = { respondantId: _id };
     }
 
-    method(authServices.getLoginPatientId(), data)
+    method(authServices.getLoggedInUser()._id, data)
       .then((data) => {
         alert.showSuccessAlert("Request sended Successfully");
       })
