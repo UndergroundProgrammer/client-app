@@ -14,9 +14,10 @@ import MedicineList from "./components/customer/MedicineList";
 import StakeholderMapper from "./components/customer/StakeholderMapper";
 import customerServices from "./components/Services/CustomerServices";
 import authServices from "./components/Services/AuthServices";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DoctorAppointmentMapper from "./components/doctor/DoctorAppointmentMapper";
+import RespondantRequestMapper from "./components/respondant/RespondantRequestMapper";
 
 function App() {
   const [userType, setUserType] = React.useState("");

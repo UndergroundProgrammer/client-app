@@ -18,17 +18,14 @@ const SignIn = () => {
       .login(data)
       .then((data) => {
         if (data.userType == "patient") {
-          alert.showErrorAlert(data.message);
-          authServices.setLoginPatientId(data._id);
-          console.log(authServices.getLoginPatientId());
+          alert.showSuccessAlert("You are logged in successfully!");
           navigate("/dashboard");
         } else if (data.userType == "doctor") {
           alert.showSuccessAlert("You are logged in successfully!");
-          navigate("/requests");
+          navigate("/doctorAppointments");
         } else if (data.userType == "respondant") {
-          alert.showErrorAlert(data.message);
-          authServices.setLoginUser(data);
-          console.log(authServices.getLoginUser());
+          alert.showSuccessAlert("You are logged in successfully!");
+          
         }
       })
       .catch((err) => alert.showErrorAlert(err.message));

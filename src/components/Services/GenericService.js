@@ -1,6 +1,6 @@
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3000/api/";
-axios.defaults.headers.common["x-auth-token"] = localStorage.getItem("accessToken");
+axios.defaults.headers.common["authorization"] = localStorage.getItem("accessToken");
 
 class GenericService {
   constructor() {}

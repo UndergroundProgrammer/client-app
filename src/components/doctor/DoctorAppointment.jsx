@@ -6,16 +6,16 @@ const DoctorAppointment = ({ appointment }) => {
         <div className="row">
           <div class="col-3 d-inline my-4">
             <img
-              src={request.imgUrl}
+              src={appointment.imgUrl}
               class="img-fluid rounded-circle ms-2"
               alt="..."
             />
           </div>
           <div class="col-6">
             <div class="card-body">
-              <h5 class="card-title">{request.username}</h5>
+              <h5 class="card-title">{appointment.username}</h5>
               <p class="card-text">
-                <a>{request.email}</a>
+                <a>{appointment.email}</a>
               </p>
             </div>
           </div>

@@ -1,13 +1,13 @@
-import doctorServices from "./Services/DoctorServices";
-import respondantServices from "./Services/RespondantServices";
-import authServices from "./Services/AuthServices";
+import doctorServices from "../Services/DoctorServices";
+import respondantServices from "../Services/RespondantServices";
+import authServices from "../Services/AuthServices";
 import React from "react";
-import Request from "";
+import DoctorAppointment from "./DoctorAppointment";
 const DoctorAppointmentMapper = () => {
   const [requests, setRequests] = React.useState([]);
   function setData() {
     doctorServices
-      .getPatients(authServices.getLoginUser()._id)
+      .getPatients(authServices.getLoggedInUser()._id)
       .then((data) => {
         setRequests(data);
       })

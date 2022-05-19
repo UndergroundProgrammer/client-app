@@ -9,7 +9,7 @@ const Stakeholder = ({ stakeholder, dataType }) => {
   var data = {};
   function sendRequest(_id) {
     console.log(authServices.getLoginPatientId());
-    if (authServices.getLoginPatientId() == undefined) {
+    if (authServices.getLoggedInUser() == undefined) {
       alert.showErrorAlert("You should must login");
       navigate("/login");
       return;

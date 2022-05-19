@@ -1,8 +1,8 @@
-import doctorServices from "./Services/DoctorServices";
-import respondantServices from "./Services/RespondantServices";
-import authServices from "./Services/AuthServices";
+import doctorServices from "../Services/DoctorServices";
+import respondantServices from "../Services/RespondantServices";
+import authServices from "../Services/AuthServices";
 import React from "react";
-import Re
+import RespondantRequest from "./RespondantRequest";
 const RespondantRequestMapper = () => {
   const [requests, setRequests] = React.useState([]);
   function setData() {
