@@ -42,8 +42,31 @@ const SignUp = () => {
       });
     }
   };
+  function validatePhoneNumber()
+  {
+    var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{6})$/;
+    if(data.phone.match(phoneno))
+    {
+    
+      return true;
+    }
+    else {
+    return false;
+    }
+  }
   function signUp(e) {
     e.preventDefault();
+    if(!data.img)
+    {
+      alert.showErrorAlert("Please upload image");
+      return;
+    }
+    
+    if(!validatePhoneNumber())
+    {
+      alert.showErrorAlert("Please enter the phone number in correct format");
+      return;
+    }
     authServices
       .registerUser(data)
       .then((data) => {
@@ -135,6 +158,7 @@ const SignUp = () => {
                   Phone number
                 </label>
                 <input
+                placeholder="+923XXXXXXXXX"
                   type="text"
                   class="form-control"
                   id="exampleInputPassword1"
@@ -143,7 +167,9 @@ const SignUp = () => {
                   }}
                   required
                 />
+                
               </div>
+              {!data.phone? <></>:!validatePhoneNumber()?<div className="text-danger">Please enter correct phone number</div>:<></> }
               <div class="mb-2 col-lg-9">
                 <label for="exampleInputPassword1" class="form-label">
                   city

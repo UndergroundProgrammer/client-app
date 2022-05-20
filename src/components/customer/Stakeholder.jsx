@@ -13,22 +13,23 @@ const Stakeholder = ({ stakeholder, dataType }) => {
       navigate("/login");
       return;
     }
-    var method = () => {};
-    if (dataType == "Doctors") {
-      method = customerServices.requestDoctor;
-      data = { doctorId: _id };
-    } else if (dataType == "Respondants") {
-      method = customerServices.requestRespondant;
-      data = { respondantId: _id };
-    }
+    navigate("/appointmentDetails", { state: { doctor: stakeholder } });
+    // var method = () => {};
+    // if (dataType == "Doctors") {
+    //   method = customerServices.requestDoctor;
+    //   data = { doctorId: _id };
+    // } else if (dataType == "Respondants") {
+    //   method = customerServices.requestRespondant;
+    //   data = { respondantId: _id };
+    // }
 
-    method(authServices.getLoggedInUser()._id, data)
-      .then((data) => {
-        alert.showSuccessAlert("Request sended Successfully");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // method(authServices.getLoggedInUser()._id, data)
+    //   .then((data) => {
+
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }
   function getButtonName() {
     if (dataType === "Doctors") return "Book Appointment";

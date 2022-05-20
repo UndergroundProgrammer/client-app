@@ -18,9 +18,9 @@ const DoctorAppointmentMapper = () => {
   React.useEffect(setData, []);
   return (
     <div className="container" id="requestsPage">
-      <h1 style={{ marginTop: "5rem" }}>Requests</h1>
+      <h1 style={{ marginTop: "5rem" }}>Appointments</h1>
       {requests.length == 0 ? (
-        <p>There ar no requests</p>
+        <p>There ar no appointments</p>
       ) : (
         <div className="row cardLayOut justify-content-center">
           {requests.map((appointment, key) => (

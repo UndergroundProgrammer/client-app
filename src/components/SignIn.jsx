@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import authServices from "./Services/AuthServices";
 import alert from "./Services/Alert";
-
 const SignIn = () => {
   let navigate = useNavigate();
   const [data, setData] = React.useState({
@@ -25,8 +24,8 @@ const SignIn = () => {
           navigate("/doctorAppointments");
         } else if (data.userType == "respondant") {
           alert.showSuccessAlert("You are logged in successfully!");
-          
         }
+        window.location.reload(false);
       })
       .catch((err) => alert.showErrorAlert(err.message));
   }

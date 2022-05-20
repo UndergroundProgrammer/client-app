@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import authServices from "./Services/AuthServices";
+import { useLocation } from "react-router-dom";
 const Navbar = () => {
+  const [userType, setUserType] = React.useState("");
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  useEffect(() => {
+    if (authServices.getLoggedInUser() != null) {
+      var type = authServices.getLoggedInUser().userType;
+      setUserType(type);
+    } else {
+      setUserType("patient");
+    }
+
+    setIsLoggedIn(authServices.isLoggedIn());
+  }, []);
   return (
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
       <div class="container">
@@ -21,67 +34,150 @@ const Navbar = () => {
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <Link
-                class="nav-link active"
-                aria-current="page"
-                href="#"
-                to="/doctors"
-              >
-                Doctors
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link
-                class="nav-link active"
-                aria-current="page"
-                href="#"
-                to="/respondants"
-              >
-                Respondants
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link
-                class="nav-link active"
-                aria-current="page"
-                href="#"
-                to="/medicines"
-              >
-                Medicines
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link
-                class="nav-link active"
-                aria-current="page"
-                href="#"
-                to="/medicines"
-              >
-                Request
-              </Link>
-            </li>
+            {userType == "doctor" ? (
+              <>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/doctorAppointments"
+                  >
+                    Appointments
+                  </Link>
+                </li>
+              </>
+            ) : userType == "respondant" ? (
+              <>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/doctorAppointments"
+                  >
+                    Requests
+                  </Link>
+                </li>
+              </>
+            ) : isLoggedIn && userType == "patient" ? (
+              <>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/doctors"
+                  >
+                    Doctors
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/respondants"
+                  >
+                    Respondants
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/medicines"
+                  >
+                    Medicines
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <></>
+            )}
 
-            <li class="nav-item">
-              <Link
-                class="nav-link active"
-                aria-current="page"
-                href="#"
-                to="/login"
-              >
-                Sign in
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link
-                class="nav-link active"
-                aria-current="page"
-                href="#"
-                to="/signup"
-              >
-                Sign up
-              </Link>
-            </li>
+            {isLoggedIn ? (
+              <>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/login"
+                    onClick={(e) => {
+                      authServices.logout();
+                      setIsLoggedIn(false);
+                    }}
+                  >
+                    Sign out
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                   
+                  >
+                    Signed in as <strong>{authServices.getLoggedInUser().username}</strong>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/doctors"
+                  >
+                    Doctors
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/respondants"
+                  >
+                    Respondants
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/medicines"
+                  >
+                    Medicines
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/login"
+                  >
+                    Sign in
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/signup"
+                  >
+                    Sign up
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

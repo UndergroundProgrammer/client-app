@@ -28,7 +28,7 @@ class AuthServices extends GenericService {
   getLoggedInUser = () => {
     try {
       const jwt = localStorage.getItem("accessToken");
-      return jwtDecode(jwt);
+      if (jwt != null) return jwtDecode(jwt);
     } catch (ex) {
       return null;
     }

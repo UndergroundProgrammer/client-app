@@ -85,8 +85,47 @@
 #productImg {
   height: 175px;
 }
+#appointmentDetails{
+  min-height: 100vh;
+  margin-top: 5rem;
+}
+.appointmentDetailImage{
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  -ms-border-radius: 100px;
+  -o-border-radius: 100px;
+}
+#appointment-Section{
+  margin-top: 5rem;
+}
+#appointment-form{
+  border-radius: 20px;
+}
 @media (max-width: 768px) {
   #medicineList {
     justify-content: center;
   }
+}
+#appointmentDetailsimg{
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+}
+#counter{
+  width: 110px;
+}
+#cartBody{
+margin-top: 5rem;
+}
+#cartTable{
+ 
+  min-height: 100vh;
+  padding: 0% 8%;
+}
+#cart-header{
+background-color:rgb(34, 82, 172) ;
+color: #fff;
 }

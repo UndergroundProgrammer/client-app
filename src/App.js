@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SignUp from "./components/SignUp";
 import RequestMapper from "./components/doctor/DoctorAppointmentMapper";
 import Footer from "./components/Footer";
+import Cart from "./components/Cart";
 import Faqs from "./components/Faqs";
 import Privacy from "./components/Privacy";
 import AboutUs from "./components/AboutUs";
@@ -18,13 +19,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DoctorAppointmentMapper from "./components/doctor/DoctorAppointmentMapper";
 import RespondantRequestMapper from "./components/respondant/RespondantRequestMapper";
+import AppointmentDetails from "./components/doctor/AppointmentDetails";
 
 function App() {
   const [userType, setUserType] = React.useState("");
   return (
     <Router>
       <div className="container-fluid px-0">
-        <Navbar></Navbar>
+        <Navbar
+        ></Navbar>
         <ToastContainer
           autoClose={1000}
           pauseOnHover={false}
@@ -62,6 +65,8 @@ function App() {
             path="/respondantRequests"
             element={<RespondantRequestMapper />}
           />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/appointmentDetails" element={<AppointmentDetails />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/" element={<Dashboard />} />
