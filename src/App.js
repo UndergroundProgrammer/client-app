@@ -20,6 +20,10 @@ import "react-toastify/dist/ReactToastify.css";
 import DoctorAppointmentMapper from "./components/doctor/DoctorAppointmentMapper";
 import RespondantRequestMapper from "./components/respondant/RespondantRequestMapper";
 import AppointmentDetails from "./components/doctor/AppointmentDetails";
+import Payment from './components/payment';
+import Success from "./components/Success";
+import cart from "./components/customer/cart"
+import Cancel from "./components/Cancel";
 
 function App() {
   const [userType, setUserType] = React.useState("");
@@ -57,6 +61,10 @@ function App() {
           <Route path="/faqs" element={<Faqs />} />
           <Route path="/privacyPolicy" element={<Privacy />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/cart/payment" element={<Cart />} />
+          <Route path="/payment/success" element={<Success />} />
+          <Route path="/payment/cancel" element={<Cancel />} />
           <Route
             path="/doctorAppointments"
             element={<DoctorAppointmentMapper />}

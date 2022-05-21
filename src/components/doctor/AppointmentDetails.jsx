@@ -1,8 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import reportWebVitals from "./../../reportWebVitals";
+import { useNavigate } from "react-router-dom";
 const AppointmentDetails = () => {
   const location = useLocation();
+  const navigate=useNavigate();
   const [doctor,setDoctor]=React.useState(location.state.doctor);
   const [data, setData] = React.useState({
     timing: "",
@@ -11,7 +13,9 @@ const AppointmentDetails = () => {
     disease:""
 
   });
-
+  const pay = ()=>{
+    navigate('/payment',{state :{amount:data.fee}})
+  } 
   function handleData(key, value) {
     setData({ ...data, [key]: value });
   }
@@ -51,7 +55,7 @@ const AppointmentDetails = () => {
             <div className="col-lg-6 px-5">
              <div>
              <h2 className="mt-3">Patient Details</h2>
-              <form>
+              <form onSubmit={pay}>
                 <div class="mb-2 col-lg-9">
                   <label for="exampleInputPassword1" class="form-label">
                     Address

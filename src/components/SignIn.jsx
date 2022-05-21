@@ -26,6 +26,7 @@ const SignIn = () => {
           alert.showSuccessAlert("You are logged in successfully!");
         }
         window.location.reload(false);
+        
       })
       .catch((err) => alert.showErrorAlert(err.message));
   }

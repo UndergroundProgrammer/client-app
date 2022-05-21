@@ -113,15 +113,15 @@ const Navbar = () => {
                     Sign out
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
+                <li 
+                
+                    class=" nav-item nav-link active"
                     aria-current="page"
                     href="#"
                    
                   >
-                    Signed in as <strong>{authServices.getLoggedInUser().username}</strong>
-                  </Link>
+                    Hi, <strong>{authServices.getLoggedInUser().username}</strong>
+                
                 </li>
               </>
             ) : (
