@@ -44,7 +44,6 @@
       src="https://kit.fontawesome.com/a9e3b85264.js"
       crossorigin="anonymous"
     ></script>
-
     <title>React App</title>
   </head>
   <body>
@@ -59,5 +58,28 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script >
+      
+  function handleReadMore() {
+    var dots = document.getElementById("dots");
+    var moreText = document.getElementById("more");
+    var btnText = document.getElementById("myBtn");
+    console.log(btnText)
+    if (dots.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = "Read more"; 
+      moreText.style.display = "none";
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = "Read less"; 
+      moreText.style.display = "inline";
+    }
+  }
+
+
+
+
+
+    </script>
   </body>
 </html>

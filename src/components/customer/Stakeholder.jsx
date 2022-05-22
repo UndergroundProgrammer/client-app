@@ -13,7 +13,12 @@ const Stakeholder = ({ stakeholder, dataType }) => {
       navigate("/login");
       return;
     }
-    navigate("/appointmentDetails", { state: { doctor: stakeholder } });
+    if (dataType == "Doctors") {
+      navigate("/appointmentDetails", { state: { doctor: stakeholder } });
+      } else if (dataType == "Respondants") {
+        navigate("/requestDetails", { state: { respondant: stakeholder } });
+      }
+   
     // var method = () => {};
     // if (dataType == "Doctors") {
     //   method = customerServices.requestDoctor;

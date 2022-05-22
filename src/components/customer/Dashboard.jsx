@@ -9,7 +9,7 @@ const Dashboard = () => {
                 <div className="px-0 col-lg-5 col-6 m-5  text-dark ">
                     <div className="ms-5 mt-5 text-white">
                         <h1 className="">We have Best Medicare plan options for you</h1>
-                        <h5>Find a doctor today and book your appointment online NOW</h5>
+                        <h5>Find a doctor today and book your appointment online now</h5>
                     </div>
                 </div>
             </div>

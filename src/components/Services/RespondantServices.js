@@ -4,7 +4,7 @@ class RespondantServices extends GenericService {
     super();
   }
 
-  getPatients = (_id) => this.get("doctor/respondant/" + _id);
+  getPatients = (_id) => this.get("respondant/patients/" + _id);
 }
 let respondantServices = new RespondantServices();
 export default respondantServices;

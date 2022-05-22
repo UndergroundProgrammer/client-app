@@ -2,26 +2,31 @@ import axios from 'axios';
 import React from 'react';
 import IncDecCounter from "./IncDecCounter"
   import { toast } from 'react-toastify';
+  import customerServices from "./Services/CustomerServices";
+  import alert from "./Services/Alert";
+  import {useState} from 'react';
 const Cart = () => {
+  const [num, setNum]= useState(0);
      function getData(){
-       axios.get('http://localhost:5000/api/products/cart',{withCredentials:true}).then((res)=>{
-            console.log(res.data.cart);
+     customerServices.getCartItems().then((res)=>{
            setItems(res.data.cart);
         }).catch((err)=>{
             console.log(err);
         });
     }
-    function removeItem(_id){
-      {axios.get("http://localhost:5000/api/products/cart/remove/"+_id,{withCredentials:true}).then(res=>{
-         console.log(res);
-        // window.location.reload();
-             toast.success("Item removed fom Cart", {
-        position: toast.POSITION.TOP_CENTER
-      });
-       }).catch(err=>console.log(err.message))}
+    function checkOut()
+    {
+        
     }
-    const [items,setItems]=React.useState([{name:"abc",price:20},{name:"sdsd",price:25},{name:"455",price:56}]);
-  // React.useEffect(getData,[]);
+    function removeItem(_id){
+      customerServices.removeItem.then(res=>{
+         console.log(res);
+          getData();
+            alert.showSuccessAlert("Item removed Successfully");
+       }).catch(err=>alert.showErrorAlert(err.response.data.message))}
+    
+    const [items,setItems]=React.useState([]);
+  React.useEffect(getData,[]);
     return ( <div className="container" id="cartBody">
       <h1>My Cart</h1>
     <div id='cartTable'  className='container pt-3'>
@@ -36,12 +41,11 @@ const Cart = () => {
     </tr>
   </thead>
   <tbody>
-    
      { items.map(item=>
        <tr>
        <td>{item.name}</td>
        <td>{item.price}</td>
-       <td>{<IncDecCounter/>}</td>
+       <td>{<IncDecCounter num={num} setNum={setNum} />}</td>
        <td><input type="button" value="Remove" className='btn btn-danger' onClick={e=>{removeItem(item._id)}}/></td>
        
        </tr>
@@ -50,7 +54,11 @@ const Cart = () => {
     
   </tbody>
 </table>
-    </div></div> );
+<div className="container text-center">
+      <button className="btn btn-primary signIn-btn " id="checkOutButton-btn" onClick={checkOut}> Checkout</button>
+</div>
+    </div >
+    </div> );
 }
  
 export default Cart;

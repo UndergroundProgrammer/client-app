@@ -54,7 +54,7 @@ const Navbar = () => {
                     class="nav-link active"
                     aria-current="page"
                     href="#"
-                    to="/doctorAppointments"
+                    to="/respondantRequests"
                   >
                     Requests
                   </Link>

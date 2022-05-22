@@ -1,18 +1,19 @@
 import doctorServices from "../Services/DoctorServices";
 import respondantServices from "../Services/RespondantServices";
 import authServices from "../Services/AuthServices";
+import alert from "../Services/Alert";
 import React from "react";
 import RespondantRequest from "./RespondantRequest";
 const RespondantRequestMapper = () => {
   const [requests, setRequests] = React.useState([]);
   function setData() {
     respondantServices
-      .getPatients(authServices.getLoginUser()._id)
+      .getPatients(authServices.getLoggedInUser()._id)
       .then((data) => {
         setRequests(data);
       })
       .catch((err) => {
-        console.log(err);
+        alert.showErrorAlert(err.response.data.message);
       });
   }
   React.useEffect(setData, []);

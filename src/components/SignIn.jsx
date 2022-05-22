@@ -24,6 +24,7 @@ const SignIn = () => {
           navigate("/doctorAppointments");
         } else if (data.userType == "respondant") {
           alert.showSuccessAlert("You are logged in successfully!");
+          navigate("/respondantRequests");
         }
         window.location.reload(false);
         

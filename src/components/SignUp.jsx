@@ -70,11 +70,14 @@ const SignUp = () => {
     authServices
       .registerUser(data)
       .then((data) => {
-        console.log(data);
+        
         alert.showSuccessAlert("The user registered successfully!");
         navigate("/login");
       })
-      .catch((err) => alert.showErrorAlert(err.message));
+      .catch((err) => {alert.showErrorAlert(err.response.data.message)
+        console.log(err.response.data.message);
+      }
+      );
   }
   return (
     <section className="login-form shadow-lg">
