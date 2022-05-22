@@ -21,6 +21,7 @@ import DoctorAppointmentMapper from "./components/doctor/DoctorAppointmentMapper
 import RespondantRequestMapper from "./components/respondant/RespondantRequestMapper";
 import AppointmentDetails from "./components/doctor/AppointmentDetails";
 import RequestDetails from "./components/respondant/RequestDetails";
+import RespondantAccepted from "./components/respondant/RespondantAccepted";
 import Payment from './components/payment';
 import Success from "./components/Success";
 import cart from "./components/customer/cart"
@@ -77,7 +78,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/appointmentDetails" element={<AppointmentDetails />} />
           <Route path="/requestDetails" element={<RequestDetails />} />
-
+          <Route path="/acceptedPatients" element={<RespondantAccepted />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/" element={<Dashboard />} />

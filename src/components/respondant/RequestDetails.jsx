@@ -29,6 +29,10 @@ const RequestDetails = () => {
 
   function handleData(key, value) {
     setData({ ...data, [key]: value });
+    if(key==="datetime"){
+    let datetime= date+"T"+time ;
+    setData({ ...data, [key]: datetime});
+    }
   }
   function sendRequest(e) {
     if (isSugar) data.purposes.push("Sugar");
@@ -36,7 +40,8 @@ const RequestDetails = () => {
     if (isVital) data.purposes.push("Vital");
     if (isFirstAid) data.purposes.push("FirstAid");
     if (isBp) data.purposes.push("Blood-Pressure");
-    handleData("datetime", date+"t"+time);
+
+
 
     e.preventDefault();
     customerServices.requestRespondant(authServices.getLoggedInUser()._id,{respondantId:respondant._id, data:data})
@@ -48,6 +53,8 @@ const RequestDetails = () => {
       alert.showErrorAlert(err.response.data.message)
     });
   }
+
+
 
   return (
     <div id="appointment-Section" className="mb-5">
@@ -165,6 +172,7 @@ const RequestDetails = () => {
                     id="exampleInputPassword1"
                     onChange={(e) => {
                       setDate(e.target.value);
+                      handleData("datetime",e.target.value)
                     }}
                     required
                   />
@@ -179,6 +187,7 @@ const RequestDetails = () => {
                     id="exampleInputPassword1"
                     onChange={(e) => {
                      setTime( e.target.value);
+                    handleData("datetime",e.target.value);
                     }}
                     required
                   />

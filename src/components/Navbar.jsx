@@ -34,7 +34,7 @@ const Navbar = () => {
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            {userType == "doctor" ? (
+            {isLoggedIn &&userType == "doctor" ? (
               <>
                 <li class="nav-item">
                   <Link
@@ -47,7 +47,7 @@ const Navbar = () => {
                   </Link>
                 </li>
               </>
-            ) : userType == "respondant" ? (
+            ) :isLoggedIn && userType == "respondant" ? (
               <>
                 <li class="nav-item">
                   <Link
@@ -57,6 +57,16 @@ const Navbar = () => {
                     to="/respondantRequests"
                   >
                     Requests
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/respondantRequests"
+                  >
+                    Accepted Patients
                   </Link>
                 </li>
               </>
