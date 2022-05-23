@@ -16,7 +16,7 @@ class RespondantServices extends GenericService {
  
    
 }
-getAccepted =(_id)=>{this.get("respondant/acceptedPatients/"+_id)}
+getAccepted =(_id)=>this.get("respondant/acceptedPatients/"+_id)
 }
 let respondantServices = new RespondantServices();
 export default respondantServices;

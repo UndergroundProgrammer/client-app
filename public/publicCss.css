@@ -226,4 +226,8 @@ color: #fff;
 }
 
 #more {display: none;}
-
+#payment-btn{
+  height: 4rem;
+  width:7rem;
+  font-size: 2rem;
+}

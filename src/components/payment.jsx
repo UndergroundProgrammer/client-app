@@ -58,7 +58,7 @@ const payment = ()=> {
     amount  = {amount}
     token  = {onToken}
     stripeKey = {key}>
-          <button class="btn btn-primary signIn-btn mb-5" >
+          <button class="btn btn-primary signIn-btn mb-5 " id="payment-btn">
                 Pay
               </button>
 </StripeCheckout>

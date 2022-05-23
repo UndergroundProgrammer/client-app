@@ -12,8 +12,7 @@ const RespondantAccepted = () => {
   function setData() {
     respondantServices.getAccepted(authServices.getLoggedInUser()._id)
     .then((data) => {
-        setRequests(data.data);
-     console.log(data.data);
+        setRequests(data);
       })
       .catch((err) => {
         alert.showErrorAlert(err.message)

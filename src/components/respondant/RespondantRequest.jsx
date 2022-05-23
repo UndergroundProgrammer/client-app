@@ -12,7 +12,7 @@ const RespondantRequest = ({ request ,getData,showButton}) => {
   const d =  await axios.post("http://localhost:3000/api/respondant/accept/"+authServices.getLoggedInUser()._id,{patientId:request.patientId});
   if(d){
     alert.showSuccessAlert("Successfully Accepted");
-    navigate('/');
+    navigate('/acceptedPatients');
   }else{
     alert.showErrorAlert("There is some Error!!");
   }
@@ -22,7 +22,7 @@ const RespondantRequest = ({ request ,getData,showButton}) => {
 const reject  = ()=>{
   axios.post("http://localhost:3000/api/respondant/reject/"+authServices.getLoggedInUser()._id,{patientId:request.patientId}).then(response=>{
     alert.showSuccessAlert("Successfully Rejected !!")
-    navigate('/');
+    navigate('/respondantRequests');
   }).catch(error=>{
     //need modification err
     alert.showErrorAlert("Error: " + error.message);

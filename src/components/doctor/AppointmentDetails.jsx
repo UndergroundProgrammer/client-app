@@ -6,20 +6,21 @@ const AppointmentDetails = () => {
   const location = useLocation();
   const navigate=useNavigate();
   const [doctor,setDoctor]=React.useState(location.state.doctor);
+  const [timeCount,setTimeCount]=React.useState(doctor.doctorTime.charAt(0));
   const [data, setData] = React.useState({
     timing: "",
     address: "",
     disease:"",
     date:""
   });
-  console.log({doctorId:doctor._id});
+
+  
   const pay = ()=>{
     navigate('/payment',{state :{amount:doctor.fee,doctorId:doctor._id,data:data}});
   } 
   function handleData(key, value) {
     setData({ ...data, [key]: value });
   }
-  console.log({doctorId:doctor._id});
   return (
     <div id="appointment-Section" className="mb-5">
       <div className="d-flex justify-content-center mb-3">
@@ -112,10 +113,10 @@ const AppointmentDetails = () => {
                     }}
                     required
                   >
-                    <option value="8 to 9">8 to 9</option>
-                    <option value="9 to 10">9 to 10</option>
-                    <option value="10 to 11">10 to 11</option>
-                    <option value="11 to 12">11 to 12</option>
+                    <option value={timeCount+":00 to"+ Number(timeCount)+1+":00"}>{timeCount}:00 to {Number(timeCount)+1}:00</option>
+                    <option value={timeCount+1+":00 to"+ Number(timeCount)+2+":00"}>{Number(timeCount)+1}:00 to {Number(timeCount)+2}:00</option>
+                    <option value={timeCount+2+":00 to"+ Number(timeCount)+3+":00"}>{Number(timeCount)+2}:00 to {Number(timeCount)+3}:00</option>
+                    <option value={timeCount+3+":00 to"+ Number(timeCount)+4+":00"}>{Number(timeCount)+3}:00 to {Number(timeCount)+4}:00</option>
                   </select>
                 </div>
 
