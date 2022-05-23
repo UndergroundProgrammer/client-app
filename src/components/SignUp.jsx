@@ -7,6 +7,13 @@ import alert from "./Services/Alert";
 import customerServices from "./Services/CustomerServices";
 import authServices from "./Services/AuthServices";
 const SignUp = () => {
+
+  
+  
+ 
+
+
+
   let navigate = useNavigate();
   const [imgUrl, setImgUrl] = React.useState();
   const [data, setData] = React.useState({
@@ -19,7 +26,7 @@ const SignUp = () => {
     city: "",
     img: "",
     fee: "",
-    timing: "",
+    doctorTime: "",
   });
   function handleData(key, value) {
     setData({ ...data, [key]: value });
@@ -42,17 +49,23 @@ const SignUp = () => {
       });
     }
   };
+
+  function StrengthChecker(){
+    let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+
+    if(strongPassword.test(data.password)) {
+         return true;
+    }  else{
+        return false;
+    }
+}
   function validatePhoneNumber()
   {
     var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{6})$/;
     if(data.phone.match(phoneno))
-    {
-    
       return true;
-    }
-    else {
+    else 
     return false;
-    }
   }
   function signUp(e) {
     e.preventDefault();
@@ -156,6 +169,8 @@ const SignUp = () => {
                   required
                 />
               </div>
+              {!data.password? <></>:!StrengthChecker()?<div className="text-danger">Please choose some Strong password</div>:<></> }
+
               <div class="mb-2 col-lg-9">
                 <label for="exampleInputPassword1" class="form-label">
                   Phone number
@@ -175,7 +190,7 @@ const SignUp = () => {
               {!data.phone? <></>:!validatePhoneNumber()?<div className="text-danger">Please enter correct phone number</div>:<></> }
               <div class="mb-2 col-lg-9">
                 <label for="exampleInputPassword1" class="form-label">
-                  city
+                  City
                 </label>
                 <input
                   type="text"
@@ -230,9 +245,9 @@ const SignUp = () => {
                       }}
                       required
                     >
-                      <option value="1">8:00am to 12:00am</option>
-                      <option value="2">2:00pm to 6:00pm</option>
-                      <option value="3">6:00pm to 10:00pm</option>
+                      <option value="8:00am to 12:00am">8:00am to 12:00am</option>
+                      <option value="2:00pm to 6:00pm">2:00pm to 6:00pm</option>
+                      <option value="6:00pm to 10:00pm">6:00pm to 10:00pm</option>
                     </select>
                   </div>
                 </>

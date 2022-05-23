@@ -29,7 +29,7 @@ const SignIn = () => {
         window.location.reload(false);
         
       })
-      .catch((err) => alert.showErrorAlert(err.message));
+      .catch((err) => alert.showErrorAlert(err.response.data.message));
   }
   return (
     <section className="login-form shadow-lg">

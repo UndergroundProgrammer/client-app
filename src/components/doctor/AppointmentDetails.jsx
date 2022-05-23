@@ -9,17 +9,17 @@ const AppointmentDetails = () => {
   const [data, setData] = React.useState({
     timing: "",
     address: "",
-    timing: "",
-    disease:""
-
+    disease:"",
+    date:""
   });
+  console.log({doctorId:doctor._id});
   const pay = ()=>{
-    navigate('/payment',{state :{amount:data.fee}})
+    navigate('/payment',{state :{amount:doctor.fee,doctorId:doctor._id,data:data}});
   } 
   function handleData(key, value) {
     setData({ ...data, [key]: value });
   }
-  console.log(doctor);
+  console.log({doctorId:doctor._id});
   return (
     <div id="appointment-Section" className="mb-5">
       <div className="d-flex justify-content-center mb-3">
@@ -48,7 +48,7 @@ const AppointmentDetails = () => {
                 <div className="col-lg-12">
                     <h6>Specialization : {doctor.specialization}</h6>
                     <h6> Fee : {doctor.fee} pkr</h6>
-                    <h6> Timing : {doctor.timing}</h6>
+                    <h6> Timing : {doctor.doctorTime}</h6>
                 </div>
               </div>
             </div>
@@ -65,7 +65,7 @@ const AppointmentDetails = () => {
                     class="form-control"
                     id="exampleInputPassword1"
                     onChange={(e) => {
-                      handleData("username", e.target.value);
+                      handleData("address", e.target.value);
                     }}
                     required
                   />
@@ -108,7 +108,7 @@ const AppointmentDetails = () => {
                     id="userType"
                     className="form-control dropdownMenu"
                     onChange={(e) => {
-                      handleData("timinig", e.target.value);
+                      handleData("timing", e.target.value);
                     }}
                     required
                   >

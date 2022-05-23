@@ -12,9 +12,9 @@ class CustomerServices extends GenericService {
   requestRespondant = (_id, data) =>
     this.post("patient/request/respondant/" + _id, data);
 
-    addToCart=(_id)=>this.get("product/cart/"+_id);
-    removeItem=(_id)=>this.get("product/cart/remove/"+_id);
-    getCartItems=()=>this.get("product/cart");
+    addToCart=(_id)=>this.get("products/cart/"+_id);
+    removeItem=(_id)=>this.get("products/cart/remove/"+_id);
+    getCartItems=()=>this.get("products/cart");
 
   /*getDoctor = (_id) => this.delete("admin/doctors/" + _id);
   getRespondant = (_id) => this.delete("admin/respondant/" + _id);

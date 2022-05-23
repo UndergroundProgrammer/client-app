@@ -1,15 +1,26 @@
 import React from "react";
 import customerServices from "../Services/CustomerServices"
 import authServices from "../Services/AuthServices"
+import alert from "../Services/Alert"
+import ReadMoreReadLess from "../ReadMoreReadLess"
+import {useNavigate} from "react-router-dom"
+
 const Medicine = ({ item }) => {
+  const navigate=useNavigate();
  function addToCart(_id)
  {
+  //  if(!authServices.isLoggedIn())
+  //  {
+  //    alert.showErrorAlert("You should must Login");
+  //    navigate("/login");
+  //    return;
+  //  }
     customerServices.addToCart(_id).then((data) => {
-    authServices.showSuccessAlert("Prooduct added to cart successfully");
-     
+      console.log(data);
+    alert.showSuccessAlert("Prooduct added to cart successfully");
     })
     .catch((err) => {
-      authServices.showErrorAlert(err.response.data.message);
+      alert.showErrorAlert(err.response.data.message);
     });
  }
   return (
@@ -23,16 +34,7 @@ const Medicine = ({ item }) => {
         />
         <div className="card-body">
           <h5 className="card-title">{item.title}</h5>
-{item.description.length>15?<> <p className="card-text ">
-          {item.description.slice(0,15)}
-            <span id="dots">...</span>
-            <span id="more">
-            {item.description.slice(11)}
-            </span>
-            <a href="#" className="ms-1" onClick={window["handleReadMore"]} id="myBtn">
-            Read more
-          </a>
-          </p></>:<>  <p className="card-text">{item.description}</p></>}
+{item.description.length>15?<><ReadMoreReadLess limit={15} children={item.description}></ReadMoreReadLess></>:<>  <p className="card-text">{item.description}</p></>}
          
           
 

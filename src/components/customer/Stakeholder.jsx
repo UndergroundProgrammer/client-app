@@ -38,7 +38,7 @@ const Stakeholder = ({ stakeholder, dataType }) => {
   }
   function getButtonName() {
     if (dataType === "Doctors") return "Book Appointment";
-    else return "Consult Now";
+    else return "Book Now";
   }
   return (
     <div>

@@ -64,7 +64,7 @@ const Navbar = () => {
                     class="nav-link active"
                     aria-current="page"
                     href="#"
-                    to="/respondantRequests"
+                    to="/acceptedPatients"
                   >
                     Accepted Patients
                   </Link>
@@ -100,6 +100,16 @@ const Navbar = () => {
                     to="/medicines"
                   >
                     Medicines
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link active"
+                    aria-current="page"
+                    href="#"
+                    to="/cart"
+                  >
+                    cart
                   </Link>
                 </li>
               </>

@@ -12,10 +12,11 @@ const RespondantAccepted = () => {
   function setData() {
     respondantServices.getAccepted(authServices.getLoggedInUser()._id)
     .then((data) => {
-        setRequests(data);
+        setRequests(data.data);
+     console.log(data.data);
       })
       .catch((err) => {
-        alert.showErrorAlert(err.response.data.message);
+        alert.showErrorAlert(err.message)
       });
   }
   React.useEffect(setData, []);
@@ -28,7 +29,7 @@ const RespondantAccepted = () => {
         <div className="row cardLayOut justify-content-center">
           {requests.map((request, key) => (
             <div className="col-lg-5 ">
-              <RespondantRequest key={key} request={request} />
+              <RespondantRequest key={key} request={request} showButton ={false}/>
             </div>
           ))}
         </div>

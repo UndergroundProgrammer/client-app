@@ -24,15 +24,10 @@ const RequestDetails = () => {
     datetime: "",
     disease:"",
     purposes:[]
-
   });
 
   function handleData(key, value) {
     setData({ ...data, [key]: value });
-    if(key==="datetime"){
-    let datetime= date+"T"+time ;
-    setData({ ...data, [key]: datetime});
-    }
   }
   function sendRequest(e) {
     if (isSugar) data.purposes.push("Sugar");
@@ -40,11 +35,9 @@ const RequestDetails = () => {
     if (isVital) data.purposes.push("Vital");
     if (isFirstAid) data.purposes.push("FirstAid");
     if (isBp) data.purposes.push("Blood-Pressure");
-
-
-
     e.preventDefault();
-    customerServices.requestRespondant(authServices.getLoggedInUser()._id,{respondantId:respondant._id, data:data})
+    data.datetime = date+"T"+time;
+        customerServices.requestRespondant(authServices.getLoggedInUser()._id,{respondantId:respondant._id, data:data})
     .then((data) => {
       alert.showSuccessAlert("Request Sent successfully!");
       navigate("/dashboard");
@@ -59,7 +52,7 @@ const RequestDetails = () => {
   return (
     <div id="appointment-Section" className="mb-5">
       <div className="d-flex justify-content-center mb-3">
-        <h1>Appointment Details</h1>
+        <h1>Respondant Request Details</h1>
       </div>
 
       <section className=" ">
@@ -135,8 +128,7 @@ const RequestDetails = () => {
   </label>
 </div>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="checkbox" value=" Injection" id="flexCheckDefault5"                               onChange={(e) => setInject(e.target.checked)}
- onChange={(e) => setInject(e.target.checked)}/>
+  <input class="form-check-input" type="checkbox" value=" Injection" id="flexCheckDefault5"  onChange={(e) => setInject(e.target.checked)}/>
   <label class="form-check-label" for="flexCheckDefault5">
     Injection
   </label>
@@ -172,7 +164,7 @@ const RequestDetails = () => {
                     id="exampleInputPassword1"
                     onChange={(e) => {
                       setDate(e.target.value);
-                      handleData("datetime",e.target.value)
+                      
                     }}
                     required
                   />
@@ -187,7 +179,7 @@ const RequestDetails = () => {
                     id="exampleInputPassword1"
                     onChange={(e) => {
                      setTime( e.target.value);
-                    handleData("datetime",e.target.value);
+                  
                     }}
                     required
                   />

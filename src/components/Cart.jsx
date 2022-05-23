@@ -6,20 +6,23 @@ import IncDecCounter from "./IncDecCounter"
   import alert from "./Services/Alert";
   import {useState} from 'react';
 const Cart = () => {
-  const [num, setNum]= useState(0);
+  const [quantity,setQuantity]=useState(0)
+  const [tData,setTData]=useState([]);
      function getData(){
-     customerServices.getCartItems().then((res)=>{
-           setItems(res.data.cart);
+     customerServices.getCartItems().then((data)=>{
+       console.log(data);
+           setItems(data.cart);
+           setTData(data.cart);
         }).catch((err)=>{
             console.log(err);
         });
     }
     function checkOut()
     {
-        
+        console.log(tData);
     }
     function removeItem(_id){
-      customerServices.removeItem.then(res=>{
+      customerServices.removeItem(_id).then(res=>{
          console.log(res);
           getData();
             alert.showSuccessAlert("Item removed Successfully");
@@ -43,9 +46,9 @@ const Cart = () => {
   <tbody>
      { items.map(item=>
        <tr>
-       <td>{item.name}</td>
+       <td>{item.title}</td>
        <td>{item.price}</td>
-       <td>{<IncDecCounter num={num} setNum={setNum} />}</td>
+       <td>{<IncDecCounter setTData={setTData} items={items} itemId={item._id} tData={tData}/>}</td>
        <td><input type="button" value="Remove" className='btn btn-danger' onClick={e=>{removeItem(item._id)}}/></td>
        
        </tr>

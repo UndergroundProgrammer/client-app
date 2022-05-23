@@ -2,28 +2,29 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import respondantServices from "../Services/RespondantServices";
 import authServices from "../Services/AuthServices";
+import axios from "axios";
+import alert from "../Services/Alert";
 
-const RespondantRequest = ({ request ,getData}) => {
+const RespondantRequest = ({ request ,getData,showButton}) => {
   console.log(request);
   const navigate=useNavigate();
-  const accept = ()=>{
-    respondantServices.acceptRequest(authServices.getLoggedInUser()._id,{patientId:request.patientId})
-.then(response=>{
-      alert.showSuccessAlert("Successfully Accepted !!");
-
-
-    }).catch(error=>{
-      alert.showErrorAlert("Error: " + error.message);
-    })
-}
+  const accept = async ()=>{
+  const d =  await axios.post("http://localhost:3000/api/respondant/accept/"+authServices.getLoggedInUser()._id,{patientId:request.patientId});
+  if(d){
+    alert.showSuccessAlert("Successfully Accepted");
+    navigate('/');
+  }else{
+    alert.showErrorAlert("There is some Error!!");
+  }
+  
+  }
 
 const reject  = ()=>{
-  respondantServices.rejectRequest(authServices.getLoggedInUser()._id,{patientId:request.patientId})
- .then((data)=>{
+  axios.post("http://localhost:3000/api/respondant/reject/"+authServices.getLoggedInUser()._id,{patientId:request.patientId}).then(response=>{
     alert.showSuccessAlert("Successfully Rejected !!")
-   // getData();
-
+    navigate('/');
   }).catch(error=>{
+    //need modification err
     alert.showErrorAlert("Error: " + error.message);
   })
 }
@@ -67,9 +68,10 @@ const reject  = ()=>{
               </p>
               <hr className="mt-0"/>
               <div className="col-lg-12 d-flex justify-content-center">
-            <button className="btn btn-primary mx-3 " onClick={accept}>Accept</button>
+           {showButton?<> <button className="btn btn-primary mx-3 " onClick={accept}>Accept</button>
             <button className="btn btn-danger mx-3 " onClick={reject}>Delete</button>
-          </div>
+</>:<></>}     
+             </div>
             </div>
           </div>
         </div>

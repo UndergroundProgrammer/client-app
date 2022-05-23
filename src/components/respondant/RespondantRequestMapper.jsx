@@ -26,7 +26,7 @@ const RespondantRequestMapper = () => {
         <div className="row cardLayOut justify-content-center">
           {requests.map((request, key) => (
             <div className="col-lg-5 ">
-              <RespondantRequest key={key} request={request} getData={setData} />
+              <RespondantRequest key={key} request={request} getData={setData} showButton ={true} />
             </div>
           ))}
         </div>
