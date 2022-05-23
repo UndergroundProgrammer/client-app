@@ -1,7 +1,7 @@
 import {useState} from "react";
 import React from "react";
 function IncDecCounter({tData, items, itemId,setTData}){
-  const [num,setNum]=useState(0);
+  const [num,setNum]=useState(1);
   let incNum =()=>{
     if(num<10)
     {

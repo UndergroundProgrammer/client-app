@@ -19,7 +19,11 @@ const Cart = () => {
     }
     function checkOut()
     {
-        console.log(tData);
+      console.log(items);
+        customerServices.checkout(items).then(data=>{
+          console.log(data);
+          window.location.href=data.url;
+        }).catch(err=>alert.showErrorAlert(err.response.data.message));
     }
     function removeItem(_id){
       customerServices.removeItem(_id).then(res=>{

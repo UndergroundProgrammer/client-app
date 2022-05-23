@@ -9,12 +9,12 @@ const Medicine = ({ item }) => {
   const navigate=useNavigate();
  function addToCart(_id)
  {
-  //  if(!authServices.isLoggedIn())
-  //  {
-  //    alert.showErrorAlert("You should must Login");
-  //    navigate("/login");
-  //    return;
-  //  }
+   if(!authServices.isLoggedIn())
+   {
+     alert.showErrorAlert("You should must Login");
+     navigate("/login");
+     return;
+   }
     customerServices.addToCart(_id).then((data) => {
       console.log(data);
     alert.showSuccessAlert("Prooduct added to cart successfully");
