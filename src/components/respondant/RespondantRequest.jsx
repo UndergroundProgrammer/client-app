@@ -9,7 +9,7 @@ const RespondantRequest = ({ request ,getData,showButton}) => {
   console.log(request);
   const navigate=useNavigate();
   const accept = async ()=>{
-  const d =  await axios.post("http://localhost:3000/api/respondant/accept/"+authServices.getLoggedInUser()._id,{patientId:request.patientId});
+  const d =  await axios.post("https://ar-medicare-backend.herokuapp.com/api/respondant/accept/"+authServices.getLoggedInUser()._id,{patientId:request.patientId});
   if(d){
     alert.showSuccessAlert("Successfully Accepted");
     navigate('/acceptedPatients');
@@ -20,7 +20,7 @@ const RespondantRequest = ({ request ,getData,showButton}) => {
   }
 
 const reject  = ()=>{
-  axios.post("http://localhost:3000/api/respondant/reject/"+authServices.getLoggedInUser()._id,{patientId:request.patientId}).then(response=>{
+  axios.post("https://ar-medicare-backend.herokuapp.com/api/respondant/reject/"+authServices.getLoggedInUser()._id,{patientId:request.patientId}).then(response=>{
     alert.showSuccessAlert("Successfully Rejected !!")
     navigate('/respondantRequests');
   }).catch(error=>{

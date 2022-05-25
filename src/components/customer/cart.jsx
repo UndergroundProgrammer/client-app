@@ -46,7 +46,7 @@ const cart = ()=> {
     useEffect(()=>{
         const makeRequest =  async ()=>{
             try {
-                const res = await axios.post("http://localhost:3000/api/checkout/create-checkout",
+                const res = await axios.post("https://ar-medicare-backend.herokuapp.com/api/checkout/create-checkout",
                 {
                     tokenId:stripeToken.id,
                     order:data,

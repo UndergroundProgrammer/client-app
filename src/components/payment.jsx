@@ -26,7 +26,7 @@ const payment = ()=> {
             console.log(doctorId);
             try {
 
-                const res = await axios.post("http://localhost:3000/api/patient/request/doctor/"+authServices.getLoggedInUser()._id,
+                const res = await axios.post("https://ar-medicare-backend.herokuapp.com/api/patient/request/doctor/"+authServices.getLoggedInUser()._id,
                 {
                     tokenId:stripeToken.id,
                     amount,
