@@ -36,7 +36,7 @@ const MedicineList = () => {
       ) : (
         <div className="row cardLayOut" id="medicineList">
           {items.map((item, key) => (
-            <div className="col-lg-3 col-md-4 col-sm-8 col-10 ">
+            <div className="col-lg-3 col-md-4 col-sm-8 col-12 ">
               <Medicine key={key} item={item} />
              
             </div>

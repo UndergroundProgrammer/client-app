@@ -11,7 +11,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-4 col-6">
+          <div className="col-lg-4 col-8">
             <h4>contact us</h4>
             <i className="fa fa-phone fa-lg"></i> : +92 3093551238<br></br>
             <i className="fa fa-envelope fa-lg"></i> :
@@ -19,7 +19,7 @@ const Footer = () => {
               armedicare@gmail.com
             </a>
           </div>
-          <div className="col-lg-4 col-6 d-flex justify-content-center">
+          <div className="col-lg-4 col-4 d-flex justify-content-center px-0">
             <div>
               <h6>
                 <a
@@ -50,7 +50,7 @@ const Footer = () => {
               </h6>
             </div>
           </div>
-          <div className="col-12 col-sm-4 align-self-center  ">
+          <div className="col-12 col-md-4 align-self-center mt-2 mb-0">
             <div className="text-center">
               <h4>Follow us</h4>
               <a

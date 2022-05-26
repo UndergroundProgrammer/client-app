@@ -34,84 +34,115 @@ const Navbar = () => {
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            {isLoggedIn &&userType == "doctor" ? (
+            {isLoggedIn && userType == "doctor" ? (
               <>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/doctorAppointments"
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/doctorAppointments"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Appointments
-                  </Link>
-                </li>
+                  </li>
+                </Link>
               </>
-            ) :isLoggedIn && userType == "respondant" ? (
+            ) : isLoggedIn && userType == "respondant" ? (
               <>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/respondantRequests"
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/respondantRequests"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Requests
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/acceptedPatients"
+                  </li>
+                </Link>
+
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/acceptedPatients"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Accepted Patients
-                  </Link>
-                </li>
+                  </li>
+                </Link>
               </>
             ) : isLoggedIn && userType == "patient" ? (
               <>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/doctors"
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/doctors"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Doctors
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/respondants"
+                  </li>
+                </Link>
+
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/respondants"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Respondants
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/medicines"
+                  </li>
+                </Link>
+
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/medicines"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Medicines
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/cart"
+                  </li>
+                </Link>
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/cart"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     cart
-                  </Link>
-                </li>
+                  </li>
+                </Link>
               </>
             ) : (
               <></>
@@ -119,83 +150,107 @@ const Navbar = () => {
 
             {isLoggedIn ? (
               <>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/login"
-                    onClick={(e) => {
-                      authServices.logout();
-                      setIsLoggedIn(false);
-                    }}
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/login"
+                  onClick={(e) => {
+                    authServices.logout();
+                    setIsLoggedIn(false);
+                  }}
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Sign out
-                  </Link>
-                </li>
-                <li 
-                
-                    class=" nav-item nav-link active"
-                    aria-current="page"
-                    href="#"
-                   
-                  >
-                    Hi, <strong>{authServices.getLoggedInUser().username}</strong>
-                
+                  </li>
+                </Link>
+
+                <li
+                  class=" nav-item nav-link active"
+                  aria-current="page"
+                  href="#"
+                >
+                  Hi, <strong>{authServices.getLoggedInUser().username}</strong>
                 </li>
               </>
             ) : (
               <>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/doctors"
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/doctors"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Doctors
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/respondants"
+                  </li>
+                </Link>
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/respondants"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Respondants
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/medicines"
+                  </li>
+                </Link>
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/medicines"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Medicines
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/login"
+                  </li>
+                </Link>
+
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/login"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Sign in
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link active"
-                    aria-current="page"
-                    href="#"
-                    to="/signup"
+                  </li>
+                </Link>
+
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/signup"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
                   >
                     Sign up
-                  </Link>
-                </li>
+                  </li>
+                </Link>
               </>
             )}
           </ul>

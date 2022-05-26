@@ -5,6 +5,7 @@ const StakeholderMapper = ({ method, dataType }) => {
   const [loading,setLoading]=React.useState(false);
   const [stakeholders, setStakeholders] = React.useState([]);
   function getData() {
+    setStakeholders([]);
     setLoading(true);
     method()
       .then((data) => {
@@ -16,7 +17,7 @@ const StakeholderMapper = ({ method, dataType }) => {
         console.log(err);
       });
   }
-  React.useEffect(getData, [method]);
+  React.useEffect(getData, [dataType]);
   return (
 
     <div className="container" id="stakeholder">
