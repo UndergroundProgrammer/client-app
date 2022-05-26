@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
       <div class="container">
         <Link class="navbar-brand" href="#" to="/">
-          AR MEDICARE
+          <img id="logo" src="images/logo.png" alt="" />
         </Link>
         <button
           class="navbar-toggler"
@@ -140,7 +140,7 @@ const Navbar = () => {
                     data-bs-toggle="collapse"
                     data-bs-target=".navbar-collapse.show"
                   >
-                    cart
+                    <i class="fa-solid fa-cart-shopping"></i> cart
                   </li>
                 </Link>
               </>
