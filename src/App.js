@@ -26,14 +26,40 @@ import Payment from './components/payment';
 import Success from "./components/Success";
 import cart from "./components/customer/cart"
 import Cancel from "./components/Cancel";
+import Layout from "./components/pharmacist/dashboardComponents/home/Layout"
+import UpdateProduct from "./components/pharmacist/dashboardComponents/product/UpdateProduct"
+import DashboardComponent from "./components/pharmacist/dashboardComponents/home/dashboard";
+import AddProduct from "./components/pharmacist/dashboardComponents/product/AddProduct"
+import ProductComponent from "./components/pharmacist/dashboardComponents/product/productComponent";
+
 
 function App() {
   const [userType, setUserType] = React.useState("");
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  React.useEffect(() => {
+    if (authServices.getLoggedInUser() != null) {
+      var type = authServices.getLoggedInUser().userType;
+      setUserType(type);
+    } else {
+      setUserType("patient");
+    }
+
+    setIsLoggedIn(authServices.isLoggedIn());
+  }, []);
+ 
   return (
     <Router>
+     
+      {(userType=="Pharmacist" && isLoggedIn)? <Layout>
+      <Routes>
+        <Route path='/dashboard/products/update/:id' element={<UpdateProduct/>} />
+        <Route path="/" element={<DashboardComponent />} />
+        <Route exact path='/dashboard/products' element={<ProductComponent/>} />
+        <Route path='/dashboard/products/addProduct' element={<AddProduct />} />
+      </Routes>
+      </Layout>:
       <div className="container-fluid px-0">
-        <Navbar
-        ></Navbar>
+        <Navbar></Navbar>
         <ToastContainer
           autoClose={1000}
           pauseOnHover={false}
@@ -82,9 +108,11 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/" element={<Dashboard />} />
+
         </Routes>
         <Footer />
       </div>
+      }
     </Router>
   );
 }
