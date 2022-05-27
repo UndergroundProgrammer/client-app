@@ -63,7 +63,7 @@ const ProductComponent = () => {
               foundProduct = product; 
             }
        });
-       axios.delete("https://ar-medicare-backend.herokuapp.com/products/"+foundProduct._id).then((response)=>{
+       axios.delete("https://ar-medicare-backend.herokuapp.com/api/products/"+foundProduct._id).then((response)=>{
            console.log(response);
            getProducts();
        }).catch((error)=>{
