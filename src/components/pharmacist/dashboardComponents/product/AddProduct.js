@@ -86,7 +86,7 @@ const AddProduct = () => {
       object.price = price;
 
       console.log(object);
-       axios.post("http://localhost:3000/api/admin/products",object).then((response) => {
+       axios.post("https://ar-medicare-backend.herokuapp.com/api/admin/products",object).then((response) => {
            console.log(response);
            alert.showSuccessAlert("Successfull Added");
             navigate("/dashboard/products");

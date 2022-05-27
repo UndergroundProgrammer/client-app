@@ -90,7 +90,7 @@ const UpdateProduct = (props) => {
 
       console.log(object);
       let id = location.pathname.split('/')[4];
-       axios.put("http://localhost:3000/api/admin/products/"+id,object).then((response) => {
+       axios.put("https://ar-medicare-backend.herokuapp.com/api/admin/products/"+id,object).then((response) => {
          console.log(response)
          alert("successfully Update");
          }
@@ -105,7 +105,7 @@ const UpdateProduct = (props) => {
     let id = location.pathname.split('/')[4]
     console.log(id)
    let product = {};
-    axios.get('http://localhost:3000/api/admin/products/'+id).then((response) => {
+    axios.get('https://ar-medicare-backend.herokuapp.com/api/admin/products/'+id).then((response) => {
           console.log(response.data);
           product = response.data;
           setTitle(product.title);

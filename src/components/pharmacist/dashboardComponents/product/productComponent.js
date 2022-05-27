@@ -45,7 +45,7 @@ const ProductComponent = () => {
 
    const getProducts = ()=>{
        setTotalProducts(0);
-     axios.get("http://localhost:3000/api/admin/products").
+     axios.get("https://ar-medicare-backend.herokuapp.com/api/admin/products").
      then((res)=> res.data).
      then((r)=>{setProducts(r);
       setTotalProducts(r.length);
@@ -63,7 +63,7 @@ const ProductComponent = () => {
               foundProduct = product; 
             }
        });
-       axios.delete("http://localhost:4000/api/products/"+foundProduct._id).then((response)=>{
+       axios.delete("https://ar-medicare-backend.herokuapp.com/products/"+foundProduct._id).then((response)=>{
            console.log(response);
            getProducts();
        }).catch((error)=>{
