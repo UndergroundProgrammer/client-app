@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Success() {
-  return (
-    <div>Success</div>
-  )
+  return <div>Success</div>;
 }
 
-export default Success
+export default Success;

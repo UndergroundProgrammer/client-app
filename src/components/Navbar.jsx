@@ -50,6 +50,20 @@ const Navbar = () => {
                     Appointments
                   </li>
                 </Link>
+                <Link
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  to="/patientsDetail"
+                >
+                  <li
+                    class="nav-item "
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show"
+                  >
+                    Description
+                  </li>
+                </Link>
               </>
             ) : isLoggedIn && userType == "respondant" ? (
               <>

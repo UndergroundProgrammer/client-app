@@ -22,16 +22,17 @@ import RespondantRequestMapper from "./components/respondant/RespondantRequestMa
 import AppointmentDetails from "./components/doctor/AppointmentDetails";
 import RequestDetails from "./components/respondant/RequestDetails";
 import RespondantAccepted from "./components/respondant/RespondantAccepted";
-import Payment from './components/payment';
+import Payment from "./components/payment";
 import Success from "./components/Success";
-import cart from "./components/customer/cart"
+import cart from "./components/customer/cart";
 import Cancel from "./components/Cancel";
-import Layout from "./components/pharmacist/dashboardComponents/home/Layout"
-import UpdateProduct from "./components/pharmacist/dashboardComponents/product/UpdateProduct"
+import Layout from "./components/pharmacist/dashboardComponents/home/Layout";
+import UpdateProduct from "./components/pharmacist/dashboardComponents/product/UpdateProduct";
 import DashboardComponent from "./components/pharmacist/dashboardComponents/home/dashboard";
-import AddProduct from "./components/pharmacist/dashboardComponents/product/AddProduct"
+import AddProduct from "./components/pharmacist/dashboardComponents/product/AddProduct";
 import ProductComponent from "./components/pharmacist/dashboardComponents/product/productComponent";
-
+import PatientDescription from "./components/doctor/PatientDescription";
+import PatientsDetail from "./components/doctor/PatientsDetail";
 
 function App() {
   const [userType, setUserType] = React.useState("");
@@ -46,73 +47,92 @@ function App() {
 
     setIsLoggedIn(authServices.isLoggedIn());
   }, []);
- 
+
   return (
     <Router>
-     
-      {(userType=="Pharmacist" && isLoggedIn)? <Layout>
-      <Routes>
-        <Route path='/dashboard/products/update/:id' element={<UpdateProduct/>} />
-        <Route path="/" element={<DashboardComponent />} />
-        <Route exact path='/dashboard/products' element={<ProductComponent/>} />
-        <Route path='/dashboard/products/addProduct' element={<AddProduct />} />
-      </Routes>
-      </Layout>:
-      <div className="container-fluid px-0">
-        <Navbar></Navbar>
-        <ToastContainer
-          autoClose={1000}
-          pauseOnHover={false}
-          pauseOnFocusLoss={false}
-        />
-        <Routes>
-          <Route
-            path="/doctors"
-            element={
-              <StakeholderMapper
-                method={customerServices.getDoctors}
-                dataType={"Doctors"}
-              />
-            }
+      {userType == "Pharmacist" && isLoggedIn ? (
+        <Layout>
+          <Routes>
+            <Route
+              path="/dashboard/products/update/:id"
+              element={<UpdateProduct />}
+            />
+            <Route path="/" element={<DashboardComponent />} />
+            <Route
+              exact
+              path="/dashboard/products"
+              element={<ProductComponent />}
+            />
+            <Route
+              path="/dashboard/products/addProduct"
+              element={<AddProduct />}
+            />
+          </Routes>
+        </Layout>
+      ) : (
+        <div className="container-fluid px-0">
+          <Navbar></Navbar>
+          <ToastContainer
+            autoClose={1000}
+            pauseOnHover={false}
+            pauseOnFocusLoss={false}
           />
-          <Route
-            path="/respondants"
-            element={
-              <StakeholderMapper
-                method={customerServices.getRespondants}
-                dataType={"Respondants"}
-              />
-            }
-          />
-          <Route path="/medicines" element={<MedicineList />} />
-          <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/faqs" element={<Faqs />} />
-          <Route path="/privacyPolicy" element={<Privacy />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/cart/payment" element={<Cart />} />
-          <Route path="/payment/success" element={<Success />} />
-          <Route path="/payment/cancel" element={<Cancel />} />
-          <Route
-            path="/doctorAppointments"
-            element={<DoctorAppointmentMapper />}
-          />
-          <Route
-            path="/respondantRequests"
-            element={<RespondantRequestMapper />}
-          />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/appointmentDetails" element={<AppointmentDetails />} />
-          <Route path="/requestDetails" element={<RequestDetails />} />
-          <Route path="/acceptedPatients" element={<RespondantAccepted />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/" element={<Dashboard />} />
+          <Routes>
+            <Route
+              path="/doctors"
+              element={
+                <StakeholderMapper
+                  method={customerServices.getDoctors}
+                  dataType={"Doctors"}
+                />
+              }
+            />
+            <Route
+              path="/respondants"
+              element={
+                <StakeholderMapper
+                  method={customerServices.getRespondants}
+                  dataType={"Respondants"}
+                />
+              }
+            />
+            <Route path="/medicines" element={<MedicineList />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/faqs" element={<Faqs />} />
+            <Route path="/privacyPolicy" element={<Privacy />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/cart/payment" element={<Cart />} />
+            <Route path="/payment/success" element={<Success />} />
+            <Route path="/payment/cancel" element={<Cancel />} />
+            <Route
+              path="/doctorAppointments/addPatientDescription"
+              element={<PatientDescription />}
+            />
 
-        </Routes>
-        <Footer />
-      </div>
-      }
+            <Route
+              path="/doctorAppointments"
+              element={<DoctorAppointmentMapper />}
+            />
+            <Route
+              path="/respondantRequests"
+              element={<RespondantRequestMapper />}
+            />
+            <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/appointmentDetails"
+              element={<AppointmentDetails />}
+            />
+            <Route path="/patientsDetail" element={<PatientsDetail />} />
+            <Route path="/requestDetails" element={<RequestDetails />} />
+            <Route path="/acceptedPatients" element={<RespondantAccepted />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/" element={<Dashboard />} />
+          </Routes>
+          <Footer />
+        </div>
+      )}
     </Router>
   );
 }
