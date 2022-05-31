@@ -1,5 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import authServices from "../Services/AuthServices";
 const PatientsDetail = () => {
+  const [data, setData] = useState([]);
+  function getData() {
+    axios
+      .get(
+        "http://localhost:3000/api/doctor/doctorPatientsHistory/" +
+          authServices.getLoggedInUser()._id
+      )
+      .then((res) => {
+        setData(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+  React.useEffect(getData, []);
   return (
     <div className="container" id="patientDetailTable">
       <div>
@@ -9,9 +25,6 @@ const PatientsDetail = () => {
         <table class="table">
           <thead class="thead-light">
             <tr>
-              <th className="tbl-col" scope="col">
-                #
-              </th>
               <th className="tbl-col" scope="col">
                 Name
               </th>
@@ -37,36 +50,17 @@ const PatientsDetail = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>Mark</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>Mark</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-              <td>Mark</td>
-              <td>Otto sdfsdfsd f</td>
-              <td>@mdo dsfdsfsdfsdfd</td>
-              <td>Mark dsfsdf sdf </td>
-            </tr>
+            {data.map((dataItem) => (
+              <tr>
+                <td>{dataItem.username}</td>
+                <td>{dataItem.age}</td>
+                <td>{dataItem.symptoms}</td>
+                <td>{dataItem.diagnosis}</td>
+                <td>{dataItem.prescription}</td>
+                <td>{dataItem.rescheduleVisit}</td>
+                <td>{dataItem.dateTime}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

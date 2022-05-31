@@ -1,15 +1,16 @@
+import axios from "axios";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import authServices from "../Services/AuthServices";
 const PatientDescription = () => {
   let navigate = useNavigate();
   const location = useLocation();
   const [data, setData] = React.useState({
-    username: "",
+    username: location.state.patient.username,
     age: "",
     dateTime: "",
-    sympotoms: "",
-    diagnostic: "",
+    symptoms: "",
+    diagnosis: "",
     prescription: "",
     rescheduleVisit: "",
   });
@@ -19,6 +20,17 @@ const PatientDescription = () => {
 
   function handleDetails(e) {
     e.preventDefault();
+    console.log({ patientId: location.state.patient._id, data: data });
+    axios
+      .post(
+        "http://localhost:3000/api/doctor/patientDetail/" +
+          authServices.getLoggedInUser()._id,
+        { patientId: location.state.patient._id, data: data }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
   }
   return (
     <section className="login-form shadow-lg">
@@ -103,7 +115,7 @@ const PatientDescription = () => {
                   class="form-control"
                   id="exampleInputPassword1"
                   onChange={(e) => {
-                    handleData("diagnostic", e.target.value);
+                    handleData("diagnosis", e.target.value);
                   }}
                   required
                 />
