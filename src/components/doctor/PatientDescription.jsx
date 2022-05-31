@@ -23,7 +23,7 @@ const PatientDescription = () => {
     console.log({ patientId: location.state.patient._id, data: data });
     axios
       .post(
-        "http://localhost:3000/api/doctor/patientDetail/" +
+        "https://ar-medicare-backend.herokuapp.com/api/doctor/patientDetail/" +
           authServices.getLoggedInUser()._id,
         { patientId: location.state.patient._id, data: data }
       )

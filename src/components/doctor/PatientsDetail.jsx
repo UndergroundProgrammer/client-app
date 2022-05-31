@@ -6,7 +6,7 @@ const PatientsDetail = () => {
   function getData() {
     axios
       .get(
-        "http://localhost:3000/api/doctor/doctorPatientsHistory/" +
+        "https://ar-medicare-backend.herokuapp.com/api/doctor/doctorPatientsHistory/" +
           authServices.getLoggedInUser()._id
       )
       .then((res) => {
