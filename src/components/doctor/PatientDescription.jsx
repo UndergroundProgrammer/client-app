@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import authServices from "../Services/AuthServices";
+import alert from "../Services/Alert";
 const PatientDescription = () => {
   let navigate = useNavigate();
   const location = useLocation();
@@ -28,9 +29,11 @@ const PatientDescription = () => {
         { patientId: location.state.patient._id, data: data }
       )
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        alert.showSuccessAlert("Description added successfully!");
+        navigate("/patientsDetail");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert.showErrorAlert(err.response.data.msg));
   }
   return (
     <section className="login-form shadow-lg">
