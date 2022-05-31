@@ -61,7 +61,7 @@ const Navbar = () => {
                     data-bs-toggle="collapse"
                     data-bs-target=".navbar-collapse.show"
                   >
-                    Description
+                    Patients Record
                   </li>
                 </Link>
               </>

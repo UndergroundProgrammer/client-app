@@ -43,7 +43,7 @@ const DoctorAppointment = ({ appointment }) => {
                   className="btn btn-primary  "
                   onClick={handlePatientDetails}
                 >
-                  Add Description
+                  Add patient Detail
                 </button>
               </div>
             </div>
