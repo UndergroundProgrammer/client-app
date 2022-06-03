@@ -248,3 +248,8 @@
 .tbl-col {
   width: auto;
 }
+
+#modal-header {
+  background-color: rgb(34, 82, 172);
+  color: #fff;
+}

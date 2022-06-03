@@ -4,7 +4,11 @@ const DoctorAppointment = ({ appointment }) => {
   const navigate = useNavigate();
   function handlePatientDetails() {
     navigate("/doctorAppointments/addPatientDescription", {
-      state: { patient: appointment },
+      state: {
+        formTitle: "Add Description",
+        btnText: "Add",
+        patient: appointment,
+      },
     });
   }
   return (
