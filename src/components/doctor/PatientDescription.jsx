@@ -7,6 +7,7 @@ import customerServices from "../Services/CustomerServices";
 const PatientDescription = () => {
   let navigate = useNavigate();
   const location = useLocation();
+  var method = () => {};
   const [comboxItems, setComboBoxItems] = useState([]);
   const [comboxValue, setComboBoxValue] = useState("");
   const [comboxQty, setComboBoxqty] = useState("");
@@ -31,12 +32,8 @@ const PatientDescription = () => {
   function handleDetails(e) {
     e.preventDefault();
     console.log({ patientId: location.state.patient._id, data: data });
-    axios
-      .post(
-        "https://ar-medicare-backend.herokuapp.com/api/doctor/patientDetail/" +
-          authServices.getLoggedInUser()._id,
-        { patientId: location.state.patient._id, data: data }
-      )
+
+    method()
       .then((res) => {
         console.log(res.data);
         alert.showSuccessAlert("Description added successfully!");
@@ -72,11 +69,33 @@ const PatientDescription = () => {
       setFormHeading(location.state.formTitle);
       setBtnText(location.state.btnText);
       console.log(updatePatient);
+      method = () =>
+        new Promise((resolve, reject) => {
+          axios
+            .put(
+              "https://ar-medicare-backend.herokuapp.com/api/doctor/patientDetail/" +
+                authServices.getLoggedInUser()._id,
+              { patientId: location.state.patient._id, data: data }
+            )
+            .then((res) => resolve(res.data))
+            .catch((err) => reject(err));
+        });
     } else if (location.state.btnText === "Add") {
       setUpdatePatient(location.state.patient);
       setFormHeading(location.state.formTitle);
       setBtnText(location.state.btnText);
       console.log(updatePatient);
+      method = () =>
+        new Promise((resolve, reject) => {
+          axios
+            .post(
+              "https://ar-medicare-backend.herokuapp.com/api/doctor/patientDetail/" +
+                authServices.getLoggedInUser()._id,
+              { patientId: location.state.patient._id, data: data }
+            )
+            .then((res) => resolve(res.data))
+            .catch((err) => reject(err));
+        });
     }
   }, []);
   return (

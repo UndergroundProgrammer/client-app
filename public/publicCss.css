@@ -81,6 +81,8 @@
   margin: 0.5rem;
   border-radius: 30px;
   overflow: hidden;
+  min-height: 350px;
+  max-height: 350px;
 }
 #productImg {
   height: 175px;
@@ -252,4 +254,17 @@
 #modal-header {
   background-color: rgb(34, 82, 172);
   color: #fff;
+}
+
+#medicine-details {
+  min-height: 100vh;
+  margin-top: 10rem;
+}
+#MedicineCard:hover {
+  cursor: pointer;
+}
+
+#textoverflow {
+  height: 80px;
+  overflow: hidden;
 }

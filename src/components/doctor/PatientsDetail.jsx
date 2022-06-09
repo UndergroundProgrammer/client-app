@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import authServices from "../Services/AuthServices";
+import alert from "../Services/Alert";
 import { useNavigate } from "react-router-dom";
 const PatientsDetail = () => {
   const [data, setData] = useState([]);
@@ -26,6 +27,7 @@ const PatientsDetail = () => {
         btnText: "Update",
         patient: dataItem,
       },
+      
     });
   }
 
@@ -33,17 +35,18 @@ const PatientsDetail = () => {
     setViewPatient(dataItem);
   }
   function removeHandler(dataItem) {
+    console.log(dataItem.patientId);
     axios
-      .delete(
-        "https://ar-medicare-backend.herokuapp.com/api/doctor/patientDetail/delete" +
+      .post(
+        "http://localhost:3000/api/doctor/patientDetail/delete/" +
           authServices.getLoggedInUser()._id,
-        { patientId: dataItem._id }
+        { patientId: dataItem.patientId }
       )
       .then((res) => {
         alert.showSuccessAlert("Description removed successfully!");
         getData();
       })
-      .catch((err) => alert.showErrorAlert(err.response.data.msg));
+      .catch((err) => alert.showErrorAlert(err.response));
   }
   React.useEffect(getData, []);
   return (

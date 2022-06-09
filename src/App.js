@@ -33,6 +33,7 @@ import AddProduct from "./components/pharmacist/dashboardComponents/product/AddP
 import ProductComponent from "./components/pharmacist/dashboardComponents/product/productComponent";
 import PatientDescription from "./components/doctor/PatientDescription";
 import PatientsDetail from "./components/doctor/PatientsDetail";
+import MedinceDetail from "./components/customer/MedinceDetail";
 
 function App() {
   const [userType, setUserType] = React.useState("");
@@ -123,6 +124,9 @@ function App() {
               path="/appointmentDetails"
               element={<AppointmentDetails />}
             />
+
+            <Route path="/medicineDetail" element={<MedinceDetail />} />
+
             <Route path="/patientsDetail" element={<PatientsDetail />} />
             <Route path="/requestDetails" element={<RequestDetails />} />
             <Route path="/acceptedPatients" element={<RespondantAccepted />} />
