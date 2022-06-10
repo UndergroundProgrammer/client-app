@@ -51,6 +51,9 @@ const MedinceDetail = () => {
             <h5>Price</h5>
             <h6>{medicine.price}</h6>
             <hr />
+            <h5>InStock</h5>
+            <h6>{medicine.quantity}</h6>
+            <hr />
             <button
               className="btn btn-primary mt-5"
               onClick={(e) => addToCart(medicine._id)}

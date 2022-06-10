@@ -1,7 +1,8 @@
 import axios from "axios";
 axios.defaults.baseURL = "https://ar-medicare-backend.herokuapp.com/api/";
-axios.defaults.headers.common["authorization"] = localStorage.getItem("accessToken");
-axios.defaults.withCredentials=true;
+axios.defaults.headers.common["authorization"] =
+  localStorage.getItem("accessToken");
+axios.defaults.withCredentials = true;
 
 class GenericService {
   constructor() {}
@@ -27,7 +28,7 @@ class GenericService {
           reject(err);
         });
     });
-    
+
   delete = (url) =>
     new Promise((resolve, reject) => {
       axios

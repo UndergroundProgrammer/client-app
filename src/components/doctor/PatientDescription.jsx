@@ -31,6 +31,8 @@ const PatientDescription = () => {
   }
 
   function handleDetails() {
+    setPresList(presList);
+    console.log(presList);
     let message = "";
     if (location.state.btnText === "Update") {
       method = doctorServices.updatePatientDetails;
@@ -40,12 +42,12 @@ const PatientDescription = () => {
       message = "Description added succcessfully!!!";
     }
     console.log(method);
-    method(authServices.getLoggedInUser()._id, location.state.patient._id, data)
-      .then((data) => {
-        alert.showSuccessAlert(message);
-        navigate("/patientsDetail");
-      })
-      .catch((err) => alert.showErrorAlert(err.response.data.message));
+    // method(authServices.getLoggedInUser()._id, location.state.patient._id, data)
+    //   .then((data) => {
+    //     alert.showSuccessAlert(message);
+    //     navigate("/patientsDetail");
+    //   })
+    //   .catch((err) => alert.showErrorAlert(err.response.data.message));
   }
 
   const disablePastDate = () => {
@@ -228,13 +230,10 @@ const PatientDescription = () => {
                   className="btn btn-primary mt-2"
                   value="Add"
                   onClick={(e) => {
-                    setPresList((presList) => [
-                      ...presList,
-                      {
-                        title: comboxValue,
-                        quantitty: comboxQty,
-                      },
-                    ]);
+                    presList.push({
+                      title: comboxValue,
+                      quantitty: comboxQty,
+                    });
 
                     setTextAreaString(
                       textareaString + comboxValue + " " + comboxQty + "\n"
