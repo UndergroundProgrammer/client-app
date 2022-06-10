@@ -6,22 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Medicine = ({ item }) => {
   const navigate = useNavigate();
-  function addToCart(_id) {
-    if (!authServices.isLoggedIn()) {
-      alert.showErrorAlert("You should must Login");
-      navigate("/login");
-      return;
-    }
-    customerServices
-      .addToCart(_id, authServices.getLoggedInUser()._id)
-      .then((data) => {
-        console.log(data);
-        alert.showSuccessAlert("Prooduct added to cart successfully");
-      })
-      .catch((err) => {
-        alert.showErrorAlert(err.response.data.message);
-      });
-  }
+
   function cardClick() {
     navigate("/medicineDetail", { state: { medicine: item } });
   }
@@ -38,18 +23,10 @@ const Medicine = ({ item }) => {
         <div className="card-body d-flex flex-column">
           <div id="textoverflow">
             <h5 className="card-title">{item.title}</h5>
-            <p className="card-text">{item.description}</p>
           </div>
 
           <div className="d-flex mt-auto">
-            <a
-              className="btn btn-primary col-6 mt-auto"
-              onClick={(e) => {
-                addToCart(item._id);
-              }}
-            >
-              Add to cart
-            </a>
+            <h5 className="mt-1 ms-2">Price</h5>
             <p className="card-text col-6 mt-1 ms-5">
               <strong>{item.price}PKR</strong>
             </p>

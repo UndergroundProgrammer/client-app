@@ -27,7 +27,6 @@ const PatientsDetail = () => {
         btnText: "Update",
         patient: dataItem,
       },
-      
     });
   }
 
@@ -38,7 +37,7 @@ const PatientsDetail = () => {
     console.log(dataItem.patientId);
     axios
       .post(
-        "http://localhost:3000/api/doctor/patientDetail/delete/" +
+        "https://ar-medicare-backend.herokuapp.com/api/doctor/patientDetail/delete/" +
           authServices.getLoggedInUser()._id,
         { patientId: dataItem.patientId }
       )

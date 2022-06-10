@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import authServices from "../Services/AuthServices";
 import alert from "../Services/Alert";
 import customerServices from "../Services/CustomerServices";
+import doctorServices from "../Services/DoctorServices";
 const PatientDescription = () => {
   let navigate = useNavigate();
   const location = useLocation();
@@ -29,17 +30,22 @@ const PatientDescription = () => {
     setData({ ...data, [key]: value });
   }
 
-  function handleDetails(e) {
-    e.preventDefault();
-    console.log({ patientId: location.state.patient._id, data: data });
-
-    method()
-      .then((res) => {
-        console.log(res.data);
-        alert.showSuccessAlert("Description added successfully!");
+  function handleDetails() {
+    let message = "";
+    if (location.state.btnText === "Update") {
+      method = doctorServices.updatePatientDetails;
+      message = "Description updated succcessfully!!!";
+    } else if (location.state.btnText === "Add") {
+      method = doctorServices.addPatientDetails;
+      message = "Description added succcessfully!!!";
+    }
+    console.log(method);
+    method(authServices.getLoggedInUser()._id, location.state.patient._id, data)
+      .then((data) => {
+        alert.showSuccessAlert(message);
         navigate("/patientsDetail");
       })
-      .catch((err) => alert.showErrorAlert(err.response.data.msg));
+      .catch((err) => alert.showErrorAlert(err.response.data.message));
   }
 
   const disablePastDate = () => {
@@ -63,39 +69,23 @@ const PatientDescription = () => {
       .catch((err) => alert.showErrorAlert(err.response.data.message));
   }, []);
   React.useEffect(() => {
-    console.log(location.state.formTitle);
     if (location.state.btnText === "Update") {
-      setUpdatePatient(location.state.patient);
+      let tdata = {
+        username: location.state.patient.username,
+        age: location.state.patient.age,
+        dateTime: location.state.patient.dateTime,
+        symptoms: location.state.patient.symptoms,
+        diagnosis: location.state.patient.diagnosis,
+        prescription: location.state.patient.prescription,
+        rescheduleVisit: location.state.patient.rescheduleVisit,
+      };
+      setData(tdata);
       setFormHeading(location.state.formTitle);
       setBtnText(location.state.btnText);
       console.log(updatePatient);
-      method = () =>
-        new Promise((resolve, reject) => {
-          axios
-            .put(
-              "https://ar-medicare-backend.herokuapp.com/api/doctor/patientDetail/" +
-                authServices.getLoggedInUser()._id,
-              { patientId: location.state.patient._id, data: data }
-            )
-            .then((res) => resolve(res.data))
-            .catch((err) => reject(err));
-        });
     } else if (location.state.btnText === "Add") {
-      setUpdatePatient(location.state.patient);
       setFormHeading(location.state.formTitle);
       setBtnText(location.state.btnText);
-      console.log(updatePatient);
-      method = () =>
-        new Promise((resolve, reject) => {
-          axios
-            .post(
-              "https://ar-medicare-backend.herokuapp.com/api/doctor/patientDetail/" +
-                authServices.getLoggedInUser()._id,
-              { patientId: location.state.patient._id, data: data }
-            )
-            .then((res) => resolve(res.data))
-            .catch((err) => reject(err));
-        });
     }
   }, []);
   return (
@@ -110,7 +100,12 @@ const PatientDescription = () => {
           </div>
           <div className="col-lg-7 px-5">
             <h2 className="mt-3">{formHeading}</h2>
-            <form onSubmit={(e) => handleDetails(e)}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleDetails();
+              }}
+            >
               <div class="mb-2 col-lg-9">
                 <label for="exampleInputPassword1" class="form-label">
                   Name
@@ -132,7 +127,7 @@ const PatientDescription = () => {
                   Age
                 </label>
                 <input
-                  value={updatePatient.age}
+                  value={data.age}
                   type="number"
                   class="form-control"
                   id="exampleInputEmail1"
@@ -148,7 +143,7 @@ const PatientDescription = () => {
                   Date and Time
                 </label>
                 <input
-                  value={updatePatient.dateTime}
+                  value={data.dateTime}
                   type="datetime-local"
                   class="form-control"
                   id="exampleInputPassword1"
@@ -166,7 +161,7 @@ const PatientDescription = () => {
                   Symptoms
                 </label>
                 <input
-                  value={updatePatient.symptoms}
+                  value={data.symptoms}
                   type="text"
                   class="form-control"
                   id="exampleInputPassword1"
@@ -182,7 +177,7 @@ const PatientDescription = () => {
                   Diagnosis
                 </label>
                 <input
-                  value={updatePatient.diagnosis}
+                  value={data.diagnosis}
                   type="text"
                   class="form-control"
                   id="exampleInputPassword1"
@@ -233,13 +228,14 @@ const PatientDescription = () => {
                   className="btn btn-primary mt-2"
                   value="Add"
                   onClick={(e) => {
-                    setPresList([
+                    setPresList((presList) => [
                       ...presList,
                       {
                         title: comboxValue,
                         quantitty: comboxQty,
                       },
                     ]);
+
                     setTextAreaString(
                       textareaString + comboxValue + " " + comboxQty + "\n"
                     );
@@ -264,7 +260,7 @@ const PatientDescription = () => {
                   Reschedule Visit
                 </label>
                 <input
-                  value={updatePatient.rescheduleVisit}
+                  value={data.rescheduleVisit}
                   type="text"
                   class="form-control"
                   id="exampleInputPassword1"

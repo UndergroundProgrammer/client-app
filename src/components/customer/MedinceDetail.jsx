@@ -1,9 +1,29 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import authServices from "../Services/AuthServices";
+import { useNavigate } from "react-router-dom";
+import alert from "../Services/Alert";
+import customerServices from "../Services/CustomerServices";
 const MedinceDetail = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [medicine, setMedcine] = useState(location.state.medicine);
-  debugger;
+  function addToCart(_id) {
+    if (!authServices.isLoggedIn()) {
+      alert.showErrorAlert("You should must Login");
+      navigate("/login");
+      return;
+    }
+    customerServices
+      .addToCart(_id, authServices.getLoggedInUser()._id)
+      .then((data) => {
+        console.log(data);
+        alert.showSuccessAlert("Prooduct added to cart successfully");
+      })
+      .catch((err) => {
+        alert.showErrorAlert(err.response.data.message);
+      });
+  }
   return (
     <div>
       <div className="container" id="medicine-details">
@@ -31,7 +51,12 @@ const MedinceDetail = () => {
             <h5>Price</h5>
             <h6>{medicine.price}</h6>
             <hr />
-            <button className="btn btn-primary mt-5">Add to cart</button>
+            <button
+              className="btn btn-primary mt-5"
+              onClick={(e) => addToCart(medicine._id)}
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

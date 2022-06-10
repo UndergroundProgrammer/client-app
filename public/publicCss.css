@@ -81,8 +81,8 @@
   margin: 0.5rem;
   border-radius: 30px;
   overflow: hidden;
-  min-height: 350px;
-  max-height: 350px;
+  min-height: 300px;
+  max-height: 300px;
 }
 #productImg {
   height: 175px;
@@ -265,6 +265,6 @@
 }
 
 #textoverflow {
-  height: 80px;
+  height: 50px;
   overflow: hidden;
 }
