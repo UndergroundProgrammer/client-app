@@ -11,7 +11,7 @@ class DoctorServices extends GenericService {
       data: data,
     });
   updatePatientDetails = (_id, patientId, data) =>
-    this.put("doctor/patientDetail/" + _id, {
+    this.put("doctor/patientDetail/update/" + _id, {
       patientId: patientId,
       data: data,
     });

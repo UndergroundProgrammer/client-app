@@ -42,12 +42,16 @@ const PatientDescription = () => {
       message = "Description added succcessfully!!!";
     }
     console.log(method);
-    // method(authServices.getLoggedInUser()._id, location.state.patient._id, data)
-    //   .then((data) => {
-    //     alert.showSuccessAlert(message);
-    //     navigate("/patientsDetail");
-    //   })
-    //   .catch((err) => alert.showErrorAlert(err.response.data.message));
+    method(
+      authServices.getLoggedInUser()._id,
+      location.state.patient.patientId,
+      data
+    )
+      .then((data) => {
+        alert.showSuccessAlert(message);
+        navigate("/patientsDetail");
+      })
+      .catch((err) => alert.showErrorAlert(err.response.data.message));
   }
 
   const disablePastDate = () => {
