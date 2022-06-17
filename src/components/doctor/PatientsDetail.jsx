@@ -164,11 +164,6 @@ const PatientsDetail = () => {
               </h6>
               <h6>{viewPatient.diagnosis}</h6>
               <hr></hr>
-              {/* <h6>
-                <strong>Prescription:</strong>
-              </h6>
-              <h6>{viewPatient.prescription}</h6>
-              <hr></hr> */}
               <h6>
                 <strong>Reschedule Status:</strong>
               </h6>

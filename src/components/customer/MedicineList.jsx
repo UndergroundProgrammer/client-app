@@ -19,7 +19,11 @@ const MedicineList = () => {
         console.log(err);
       });
   }
-
+  const handleOnSearch = (string, results) => {
+    // onSearch will have as the first callback parameter
+    // the string searched and for the second the results.
+    console.log(string, results);
+  };
   const handleOnSelect = (item) => {
     console.log(item);
     setItems([item]);
@@ -53,13 +57,14 @@ const MedicineList = () => {
           <div style={{ width: 300 }}>
             <ReactSearchAutocomplete
               items={items}
+              fuseOptions={{ keys: ["title"] }}
+              resultStringKeyName="title"
               onSelect={handleOnSelect}
               onClear={handleClear}
-              autoFocus
               formatResult={formatResult}
-              fuseOptions={{ keys: ["title", "description"] }}
-              resultStringKeyName="title"
+              onSearch={handleOnSearch}
               styling={{ zIndex: 4 }}
+              autoFocus
             />
           </div>
         </div>

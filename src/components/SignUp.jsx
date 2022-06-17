@@ -7,13 +7,6 @@ import alert from "./Services/Alert";
 import customerServices from "./Services/CustomerServices";
 import authServices from "./Services/AuthServices";
 const SignUp = () => {
-
-  
-  
- 
-
-
-
   let navigate = useNavigate();
   const [imgUrl, setImgUrl] = React.useState();
   const [data, setData] = React.useState({
@@ -50,47 +43,43 @@ const SignUp = () => {
     }
   };
 
-  function StrengthChecker(){
-    let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+  function StrengthChecker() {
+    let strongPassword = new RegExp(
+      "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})"
+    );
 
-    if(strongPassword.test(data.password)) {
-         return true;
-    }  else{
-        return false;
-    }
-}
-  function validatePhoneNumber()
-  {
-    var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{6})$/;
-    if(data.phone.match(phoneno))
+    if (strongPassword.test(data.password)) {
       return true;
-    else 
-    return false;
+    } else {
+      return false;
+    }
+  }
+  function validatePhoneNumber() {
+    var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{6})$/;
+    if (data.phone.match(phoneno)) return true;
+    else return false;
   }
   function signUp(e) {
     e.preventDefault();
-    if(!data.img)
-    {
+    if (!data.img) {
       alert.showErrorAlert("Please upload image");
       return;
     }
-    
-    if(!validatePhoneNumber())
-    {
+
+    if (!validatePhoneNumber()) {
       alert.showErrorAlert("Please enter the phone number in correct format");
       return;
     }
     authServices
       .registerUser(data)
       .then((data) => {
-        
         alert.showSuccessAlert("The user registered successfully!");
         navigate("/login");
       })
-      .catch((err) => {alert.showErrorAlert(err.response.data.message)
+      .catch((err) => {
+        alert.showErrorAlert(err.response.data.message);
         console.log(err.response.data.message);
-      }
-      );
+      });
   }
   return (
     <section className="login-form shadow-lg">
@@ -134,6 +123,11 @@ const SignUp = () => {
                   onChange={(e) => {
                     handleData("username", e.target.value);
                   }}
+                  onKeyPress={(event) => {
+                    if (!/^[a-zA-Z]+$/.test(event.key)) {
+                      event.preventDefault();
+                    }
+                  }}
                   required
                 />
               </div>
@@ -169,14 +163,22 @@ const SignUp = () => {
                   required
                 />
               </div>
-              {!data.password? <></>:!StrengthChecker()?<div className="text-danger">Please choose some Strong password</div>:<></> }
+              {!data.password ? (
+                <></>
+              ) : !StrengthChecker() ? (
+                <div className="text-danger">
+                  Please choose some Strong password
+                </div>
+              ) : (
+                <></>
+              )}
 
               <div class="mb-2 col-lg-9">
                 <label for="exampleInputPassword1" class="form-label">
                   Phone number
                 </label>
                 <input
-                placeholder="+923XXXXXXXXX"
+                  placeholder="+923XXXXXXXXX"
                   type="text"
                   class="form-control"
                   id="exampleInputPassword1"
@@ -185,9 +187,16 @@ const SignUp = () => {
                   }}
                   required
                 />
-                
               </div>
-              {!data.phone? <></>:!validatePhoneNumber()?<div className="text-danger">Please enter correct phone number</div>:<></> }
+              {!data.phone ? (
+                <></>
+              ) : !validatePhoneNumber() ? (
+                <div className="text-danger">
+                  Please enter correct phone number
+                </div>
+              ) : (
+                <></>
+              )}
               <div class="mb-2 col-lg-9">
                 <label for="exampleInputPassword1" class="form-label">
                   City
@@ -241,13 +250,17 @@ const SignUp = () => {
                       id="userType"
                       className="form-control dropdownMenu"
                       onChange={(e) => {
-                        handleData("timing", e.target.value);
+                        handleData("doctorTime", e.target.value);
                       }}
                       required
                     >
-                      <option value="8:00am to 12:00am">8:00am to 12:00am</option>
+                      <option value="8:00am to 12:00am">
+                        8:00am to 12:00am
+                      </option>
                       <option value="2:00pm to 6:00pm">2:00pm to 6:00pm</option>
-                      <option value="6:00pm to 10:00pm">6:00pm to 10:00pm</option>
+                      <option value="6:00pm to 10:00pm">
+                        6:00pm to 10:00pm
+                      </option>
                     </select>
                   </div>
                 </>

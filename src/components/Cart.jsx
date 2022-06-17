@@ -12,20 +12,18 @@ const Cart = () => {
     customerServices
       .getCartItems()
       .then((data) => {
-        console.log(data);
         setItems(data.cart);
         setTData(data.cart);
+        console.log(data.cart);
       })
       .catch((err) => {
         console.log(err);
       });
   }
   function checkOut() {
-    console.log(tData);
     customerServices
       .checkout(tData)
       .then((data) => {
-        console.log(data);
         window.location.href = data.url;
       })
       .catch((err) => alert.showErrorAlert(err.response.data.message));
@@ -43,6 +41,7 @@ const Cart = () => {
 
   const [items, setItems] = React.useState([]);
   React.useEffect(getData, []);
+
   return (
     <div className="container" id="cartBody">
       <h1>My Cart</h1>

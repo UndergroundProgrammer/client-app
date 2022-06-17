@@ -28,7 +28,7 @@ const Medicine = ({ item }) => {
           <div className="d-flex mt-auto">
             <h5 className="mt-1 ms-2">Price</h5>
             <p className="card-text col-6 mt-1 ms-5">
-              <strong>{item.price}PKR</strong>
+              <strong>{item.price}PKR/Pack</strong>
             </p>
           </div>
         </div>

@@ -17,6 +17,7 @@ const PatientDescription = () => {
   const [updatePatient, setUpdatePatient] = useState({});
   const [formHeading, setFormHeading] = useState("");
   const [btnText, setBtnText] = useState("");
+  const [isPrescriptionError, setIsPrescriptionError] = useState(false);
   const [data, setData] = React.useState({
     username: location.state.patient.username,
     age: "",
@@ -30,6 +31,11 @@ const PatientDescription = () => {
     setData({ ...data, [key]: value });
   }
 
+  function validatePrescription(text) {
+    return comboxItems.some(function (el) {
+      return el.title === text;
+    });
+  }
   function handleDetails() {
     setPresList(presList);
     console.log(presList);
@@ -59,13 +65,6 @@ const PatientDescription = () => {
     const dd = String(today.getDate()).padStart(2, "0");
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const yyyy = today.getFullYear();
-    return yyyy + "-" + mm + "-" + dd + "T00:00";
-  };
-  const limitFutureDate = () => {
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const yyyy = today.getFullYear() + 1;
     return yyyy + "-" + mm + "-" + dd + "T00:00";
   };
   React.useEffect(() => {
@@ -141,6 +140,11 @@ const PatientDescription = () => {
                   onChange={(e) => {
                     handleData("age", e.target.value);
                   }}
+                  onKeyPress={(event) => {
+                    if (!/[1-9]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+                  }}
                   required
                 />
               </div>
@@ -154,14 +158,13 @@ const PatientDescription = () => {
                   class="form-control"
                   id="exampleInputPassword1"
                   min={disablePastDate()}
-                  max={limitFutureDate()}
+                  max={disablePastDate()}
                   onChange={(e) => {
                     handleData("dateTime", e.target.value);
                   }}
                   required
                 />
               </div>
-
               <div class="mb-2 col-lg-9">
                 <label for="exampleInputPassword1" class="form-label">
                   Symptoms
@@ -177,7 +180,6 @@ const PatientDescription = () => {
                   required
                 />
               </div>
-
               <div class="mb-2 col-lg-9">
                 <label for="exampleInputPassword1" class="form-label">
                   Diagnosis
@@ -223,6 +225,11 @@ const PatientDescription = () => {
                       placeholder="qty"
                       required
                       className="form-control"
+                      onKeyPress={(event) => {
+                        if (!/[1-9]/.test(event.key)) {
+                          event.preventDefault();
+                        }
+                      }}
                       onChange={(e) => {
                         setComboBoxqty(e.target.value);
                       }}
@@ -234,20 +241,26 @@ const PatientDescription = () => {
                   className="btn btn-primary mt-2"
                   value="Add"
                   onClick={(e) => {
-                    presList.push({
-                      title: comboxValue,
-                      quantitty: comboxQty,
-                    });
-
-                    setTextAreaString(
-                      textareaString + comboxValue + " " + comboxQty + "\n"
-                    );
+                    if (validatePrescription(comboxValue)) {
+                      setIsPrescriptionError(false);
+                      presList.push({
+                        title: comboxValue,
+                        quantity: comboxQty,
+                      });
+                      setTextAreaString(
+                        textareaString + comboxValue + " " + comboxQty + "\n"
+                      );
+                    } else setIsPrescriptionError(true);
 
                     console.log(presList);
                   }}
                 />
               </div>
-
+              {isPrescriptionError ? (
+                <div style={{ color: "red" }}>Invalid medicine!</div>
+              ) : (
+                <></>
+              )}
               <div class="mb-2 col-lg-9">
                 <textarea
                   name="message"
@@ -273,7 +286,6 @@ const PatientDescription = () => {
                   required
                 />
               </div>
-
               <button type="submit" class="btn btn-primary signIn-btn mb-5">
                 {btnText}
               </button>
