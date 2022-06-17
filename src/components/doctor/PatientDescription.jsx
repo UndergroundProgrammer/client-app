@@ -137,6 +137,7 @@ const PatientDescription = () => {
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
+                  min={1}
                   onChange={(e) => {
                     handleData("age", e.target.value);
                   }}
@@ -225,6 +226,7 @@ const PatientDescription = () => {
                       placeholder="qty"
                       required
                       className="form-control"
+                      min={1}
                       onKeyPress={(event) => {
                         if (!/[1-9]/.test(event.key)) {
                           event.preventDefault();

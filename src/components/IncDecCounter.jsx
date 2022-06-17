@@ -52,7 +52,7 @@ function IncDecCounter({ tData, items, itemId, setTData }) {
             value={num}
             onChange={handleChange}
             onKeyPress={(event) => {
-              if (!/[1-9]/.test(event.key)) {
+              if (!/[0-9]/.test(event.key)) {
                 event.preventDefault();
               }
             }}

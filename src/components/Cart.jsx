@@ -22,19 +22,29 @@ const Cart = () => {
       });
   }
   function validateOrderQuantity() {
-    return tData.some(function (el) {
-      return el.orderQantity <= el.quantity;
-    });
+    for (let i = 0; i < tData.length; i++) {
+      if (tData[i].orderQuantity > tData[i].quantity) {
+        outofstock = tData[i];
+        return false;
+      }
+      console.log(tData.orderQuantity);
+    }
   }
   function checkOut() {
-    if (validateOrderQuantity) {
+    if (validateOrderQuantity()) {
       customerServices
         .checkout(tData)
         .then((data) => {
           window.location.href = data.url;
         })
         .catch((err) => alert.showErrorAlert(err.response.data.message));
-    } else alert.showErrorAlert("invalid quantity enterd");
+    } else
+      alert.showErrorAlert(
+        outofstock.title +
+          "is out of stock " +
+          outofstock.quantity +
+          " quantity is available"
+      );
   }
   function removeItem(_id) {
     customerServices
