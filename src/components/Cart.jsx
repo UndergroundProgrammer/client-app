@@ -6,6 +6,7 @@ import customerServices from "./Services/CustomerServices";
 import alert from "./Services/Alert";
 import { useState } from "react";
 const Cart = () => {
+  var outofstock = {};
   const [quantity, setQuantity] = useState(0);
   const [tData, setTData] = useState([]);
   function getData() {
@@ -20,13 +21,20 @@ const Cart = () => {
         console.log(err);
       });
   }
+  function validateOrderQuantity() {
+    return tData.some(function (el) {
+      return el.orderQantity <= el.quantity;
+    });
+  }
   function checkOut() {
-    customerServices
-      .checkout(tData)
-      .then((data) => {
-        window.location.href = data.url;
-      })
-      .catch((err) => alert.showErrorAlert(err.response.data.message));
+    if (validateOrderQuantity) {
+      customerServices
+        .checkout(tData)
+        .then((data) => {
+          window.location.href = data.url;
+        })
+        .catch((err) => alert.showErrorAlert(err.response.data.message));
+    } else alert.showErrorAlert("invalid quantity enterd");
   }
   function removeItem(_id) {
     customerServices
