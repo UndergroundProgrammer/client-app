@@ -28,7 +28,9 @@ const Cart = () => {
         return false;
       }
       console.log(tData.orderQuantity);
+      console.log(tData.quantity);
     }
+    return true;
   }
   function checkOut() {
     if (validateOrderQuantity()) {
