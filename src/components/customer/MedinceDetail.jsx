@@ -15,7 +15,7 @@ const MedinceDetail = () => {
       return;
     }
     customerServices
-      .addToCart(_id, authServices.getLoggedInUser()._id)
+      .addToCart(_id,{userId: authServices.getLoggedInUser()._id})
       .then((data) => {
         console.log(data);
         alert.showSuccessAlert("Prooduct added to cart successfully");

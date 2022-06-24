@@ -1,7 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import reportWebVitals from "./../../reportWebVitals";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import authServices from "../Services/AuthServices";
+import customerServices from "../Services/CustomerServices";
+import alert from "../Services/Alert";
 const AppointmentDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -13,10 +16,19 @@ const AppointmentDetails = () => {
     disease: "",
     date: "",
   });
-  const pay = () => {
-    navigate("/payment", {
-      state: { amount: doctor.fee, doctorId: doctor._id, data: data },
-    });
+  const pay = (e) => {
+    e.preventDefault();
+    customerServices
+      .validateRequest(authServices.getLoggedInUser()._id, {
+        doctorId: doctor._id,
+        data: data,
+      })
+      .then((res) => {
+        navigate("/payment", {
+          state: { amount: doctor.fee, doctorId: doctor._id, data: data },
+        });
+      })
+      .catch((err) => alert.showErrorAlert(err.response.data.message));
   };
   function handleData(key, value) {
     setData({ ...data, [key]: value });
@@ -65,7 +77,7 @@ const AppointmentDetails = () => {
             <div className="col-lg-6 px-5">
               <div>
                 <h2 className="mt-3">Patient Details</h2>
-                <form onSubmit={pay}>
+                <form onSubmit={(e) => pay(e)}>
                   <div class="mb-2 col-lg-9">
                     <label for="exampleInputPassword1" class="form-label">
                       Address

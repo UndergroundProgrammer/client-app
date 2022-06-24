@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "https://ar-medicare-backend.herokuapp.com/api/";
+axios.defaults.baseURL = "http://ar-medicare-backend.herokuapp.com/api/";
 axios.defaults.headers.common["authorization"] =
   localStorage.getItem("accessToken");
 axios.defaults.withCredentials = true;
