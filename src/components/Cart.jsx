@@ -5,17 +5,24 @@ import { toast } from "react-toastify";
 import customerServices from "./Services/CustomerServices";
 import alert from "./Services/Alert";
 import { useState } from "react";
+import authServices from "./Services/AuthServices";
 const Cart = () => {
   var outofstock = {};
   const [quantity, setQuantity] = useState(0);
   const [tData, setTData] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(
+    authServices.getLoggedInUser()._id
+  );
   function getData() {
     customerServices
       .getCartItems()
-      .then((data) => {
-        setItems(data.cart);
-        setTData(data.cart);
-        console.log(data.cart);
+      .then(async (data) => {
+        let filterProd = await data.cart.filter((item) => {
+          return item.userId == loggedInUser;
+        });
+        setItems(filterProd);
+        setTData(filterProd);
+        console.log(filterProd);
       })
       .catch((err) => {
         console.log(err);
