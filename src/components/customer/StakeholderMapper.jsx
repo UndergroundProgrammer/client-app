@@ -16,7 +16,7 @@ const StakeholderMapper = ({ method, dataType }) => {
           .then((res) => {
             axios
               .get(
-                "http://ar-medicare-backend.herokuapp.com/api/patient/doctors/" +
+                "https://ar-medicare-backend.herokuapp.com/api/patient/doctors/" +
                   authServices.getLoggedInUser()._id
               )
               .then((data) => {
