@@ -127,7 +127,6 @@ function App() {
               path="/appointmentDetails"
               element={<AppointmentDetails />}
             />
-
             <Route path="/medicineDetail" element={<MedinceDetail />} />
             <Route path="/patient/chat" element={<PatientChat />} />
             <Route path="/patientsDetail" element={<PatientsDetail />} />
