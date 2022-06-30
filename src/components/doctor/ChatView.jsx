@@ -88,7 +88,7 @@ function ChatView({ socket, username, room }) {
           })}
         </ScrollToBottom>
       </div>
-      <hr />
+      <hr className="p-0 m-0" />
 
       <div className="chat-footer ">
         <input
