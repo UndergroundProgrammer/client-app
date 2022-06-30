@@ -34,6 +34,8 @@ import ProductComponent from "./components/pharmacist/dashboardComponents/produc
 import PatientDescription from "./components/doctor/PatientDescription";
 import PatientsDetail from "./components/doctor/PatientsDetail";
 import MedinceDetail from "./components/customer/MedinceDetail";
+import DoctorChat from "./components/doctor/Chat";
+import PatientChat from "./components/customer/PatientChat";
 
 function App() {
   const [userType, setUserType] = React.useState("");
@@ -79,6 +81,7 @@ function App() {
             pauseOnFocusLoss={false}
           />
           <Routes>
+            <Route path="/doctors/chat" element={<DoctorChat />} />
             <Route
               path="/doctors"
               element={
@@ -126,7 +129,7 @@ function App() {
             />
 
             <Route path="/medicineDetail" element={<MedinceDetail />} />
-
+            <Route path="/patient/chat" element={<PatientChat />} />
             <Route path="/patientsDetail" element={<PatientsDetail />} />
             <Route path="/requestDetails" element={<RequestDetails />} />
             <Route path="/acceptedPatients" element={<RespondantAccepted />} />
