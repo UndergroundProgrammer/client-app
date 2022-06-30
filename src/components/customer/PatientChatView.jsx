@@ -62,7 +62,10 @@ function ChatView({ socket, username, room }) {
         <p>Live Chat</p>
       </div>
       <div className="chat-body">
-        <ScrollToBottom className="message-container">
+        <ScrollToBottom
+          className="message-container"
+          followButtonClassName={"top-to-bottom"}
+        >
           {messageList.map((messageContent) => {
             return (
               <div
@@ -83,6 +86,7 @@ function ChatView({ socket, username, room }) {
           })}
         </ScrollToBottom>
       </div>
+      <hr className="m-0 p-0" />
       <div className="chat-footer">
         <input
           type="text"

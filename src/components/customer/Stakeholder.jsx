@@ -86,7 +86,7 @@ const Stakeholder = ({ stakeholder, dataType, chat }) => {
                       });
                     }}
                   >
-                    Chat Now
+                    Chat
                   </button>
                 ) : (
                   <></>
