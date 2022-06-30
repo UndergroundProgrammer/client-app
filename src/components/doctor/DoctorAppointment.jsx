@@ -40,7 +40,14 @@ const DoctorAppointment = ({ appointment }) => {
               <p class="card-text mb-0 text-muted">{appointment.data.date}</p>
               <hr className="mt-0" />
               <div className="col-lg-12 d-flex justify-content-center">
-                <button className="btn btn-primary me-2 " onClick={(e) => {}}>
+                <button
+                  className="btn btn-primary me-2 "
+                  onClick={(e) => {
+                    navigate("/doctors/chat", {
+                      state: { patient: appointment },
+                    });
+                  }}
+                >
                   Chat Now
                 </button>
                 <button

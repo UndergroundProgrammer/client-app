@@ -4,7 +4,7 @@ import alert from "../Services/Alert";
 import customerServices from "../Services/CustomerServices";
 import StakeholderMapper from "./StakeholderMapper";
 import { useNavigate } from "react-router-dom";
-const Stakeholder = ({ stakeholder, dataType }) => {
+const Stakeholder = ({ stakeholder, dataType, chat }) => {
   let navigate = useNavigate();
   var data = {};
   function sendRequest(_id) {
@@ -15,10 +15,10 @@ const Stakeholder = ({ stakeholder, dataType }) => {
     }
     if (dataType == "Doctors") {
       navigate("/appointmentDetails", { state: { doctor: stakeholder } });
-      } else if (dataType == "Respondants") {
-        navigate("/requestDetails", { state: { respondant: stakeholder } });
-      }
-   
+    } else if (dataType == "Respondants") {
+      navigate("/requestDetails", { state: { respondant: stakeholder } });
+    }
+
     // var method = () => {};
     // if (dataType == "Doctors") {
     //   method = customerServices.requestDoctor;
@@ -59,14 +59,39 @@ const Stakeholder = ({ stakeholder, dataType }) => {
               <p class="card-text">
                 <a>{stakeholder.email}</a>
               </p>
-              <button
-                className="btn btn-info text-white fw-bold"
-                onClick={(e) => {
-                  sendRequest(stakeholder._id);
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
                 }}
               >
-                {getButtonName()}
-              </button>
+                <button
+                  className="btn btn-info text-white fw-bold"
+                  onClick={(e) => {
+                    sendRequest(stakeholder._id);
+                  }}
+                  style={{ marginRight: 5 }}
+                >
+                  {getButtonName()}
+                </button>
+
+                {dataType === "Doctors" && chat === true ? (
+                  <button
+                    className="btn btn-info text-white fw-bold"
+                    onClick={() => {
+                      navigate("/patient/chat", {
+                        state: { doctor: stakeholder },
+                      });
+                    }}
+                  >
+                    Chat Now
+                  </button>
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
           </div>
         </div>
