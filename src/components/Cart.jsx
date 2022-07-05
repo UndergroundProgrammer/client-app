@@ -3,6 +3,7 @@ import React from "react";
 import IncDecCounter from "./IncDecCounter";
 import { toast } from "react-toastify";
 import customerServices from "./Services/CustomerServices";
+import RiseLoader from "react-spinners/RiseLoader";
 import alert from "./Services/Alert";
 import { useState } from "react";
 import authServices from "./Services/AuthServices";
@@ -10,10 +11,12 @@ const Cart = () => {
   var outofstock = {};
   const [quantity, setQuantity] = useState(0);
   const [tData, setTData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(
     authServices.getLoggedInUser()._id
   );
   function getData() {
+    setLoading(true);
     customerServices
       .getCartItems()
       .then(async (data) => {
@@ -23,7 +26,9 @@ const Cart = () => {
         setItems(filterProd);
         setTData(filterProd);
         console.log(filterProd);
+        setLoading(false);
       })
+
       .catch((err) => {
         console.log(err);
       });
@@ -72,55 +77,70 @@ const Cart = () => {
   return (
     <div className="container" id="cartBody">
       <h1>My Cart</h1>
-      <div id="cartTable" className="container pt-3">
-        <table className="table shadow-lg ">
-          <thead id="cart-header">
-            <tr>
-              <th scope="col">Item name</th>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item) => (
-              <tr>
-                <td>{item.title}</td>
-                <td>{item.price}</td>
-                <td>
-                  {
-                    <IncDecCounter
-                      setTData={setTData}
-                      items={items}
-                      itemId={item._id}
-                      tData={tData}
-                    />
-                  }
-                </td>
-                <td>
-                  <input
-                    type="button"
-                    value="Remove"
-                    className="btn btn-danger"
-                    onClick={(e) => {
-                      removeItem(item._id);
-                    }}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="container text-center">
-          <button
-            className="btn btn-primary signIn-btn "
-            id="checkOutButton-btn"
-            onClick={checkOut}
-          >
-            Checkout
-          </button>
-        </div>
+      <div className="d-flex justify-content-center">
+        <RiseLoader
+          color={"#2237ac"}
+          loading={loading}
+          css={"margin-top:300px"}
+        />
       </div>
+      {items.length == 0 && !loading ? (
+        <p>There is no item in cart </p>
+      ) : loading ? (
+        <></>
+      ) : (
+        <>
+          <div id="cartTable" className="container pt-3">
+            <table className="table shadow-lg ">
+              <thead id="cart-header">
+                <tr>
+                  <th scope="col">Item name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item) => (
+                  <tr>
+                    <td>{item.title}</td>
+                    <td>{item.price}</td>
+                    <td>
+                      {
+                        <IncDecCounter
+                          setTData={setTData}
+                          items={items}
+                          itemId={item._id}
+                          tData={tData}
+                        />
+                      }
+                    </td>
+                    <td>
+                      <input
+                        type="button"
+                        value="Remove"
+                        className="btn btn-danger"
+                        onClick={(e) => {
+                          removeItem(item._id);
+                        }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="container text-center">
+              <button
+                className="btn btn-primary signIn-btn "
+                id="checkOutButton-btn"
+                onClick={checkOut}
+              >
+                Checkout
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

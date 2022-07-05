@@ -121,6 +121,7 @@
 }
 #cartBody {
   margin-top: 5rem;
+  min-height: 100vh;
 }
 #cartTable {
   min-height: 100vh;

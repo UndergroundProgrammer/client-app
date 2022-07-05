@@ -19,9 +19,6 @@ class CustomerServices extends GenericService {
   checkout = (data) => this.post("checkout/create-checkout", data);
   validateRequest = (id, data) =>
     this.post("/patient/checkdoctor/availability/" + id, data);
-  /*getDoctor = (_id) => this.delete("admin/doctors/" + _id);
-  getRespondant = (_id) => this.delete("admin/respondant/" + _id);
-  getProduct = (_id) => this.delete("admin/products/" + _id);*/
 }
 let customerServices = new CustomerServices();
 export default customerServices;

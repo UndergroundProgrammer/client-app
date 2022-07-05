@@ -11,7 +11,7 @@ const StakeholderMapper = ({ method, dataType }) => {
     setStakeholders([]);
     setLoading(true);
 
-    dataType === "Doctors"
+    dataType === "Doctors" && authServices.isLoggedIn()
       ? method()
           .then((res) => {
             axios
